@@ -20,8 +20,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -39,10 +41,17 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun GameScreen() {
     val viewModel: GameViewModel = koinViewModel()
-    val pickedAnswer = remember { mutableStateOf<Answer?>(null) }
+    var pickedAnswer by remember { mutableStateOf<Answer?>(null) }
+
+    var checkResults by remember { mutableStateOf(false) }
 
     fun newQuestionPicked(answer: Answer) {
-        pickedAnswer.value = answer
+        if (!viewModel.currentQuestion.value.isAnswered) pickedAnswer = answer
+    }
+
+    fun invalidateAnswers() {
+        pickedAnswer = null
+        checkResults = false
     }
 
     LaunchedEffect(key1 = null, block = {
@@ -85,13 +94,17 @@ fun GameScreen() {
                 style = MaterialTheme.typography.bodyLarge
             )
             Spacer(modifier = Modifier.height(40.dp))
+
             LazyColumn(modifier = Modifier
                 .fillMaxWidth(), content = {
                 items(viewModel.currentQuestion.value.answers) {
                     AnswerItem(
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(58.dp),
                         answer = it,
-                        isPicked = pickedAnswer.value?.id == it.id,
+                        isPicked = pickedAnswer?.id == it.id,
+                        isShowResult = checkResults,
                         onClick = ::newQuestionPicked
                     )
                     Spacer(modifier = Modifier.height(10.dp))
@@ -101,7 +114,15 @@ fun GameScreen() {
             Row(
                 modifier = Modifier
                     .weight(1f)
-                    .clickable(onClick = viewModel::nextQuestion),
+                    .clickable(onClick = {
+                        if (viewModel.currentQuestion.value.isAnswered) {
+                            invalidateAnswers()
+                            viewModel.nextQuestion()
+                        } else {
+                            checkResults = true
+                            viewModel.currentQuestion.value.isAnswered = true
+                        }
+                    }),
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.Bottom
             ) {
