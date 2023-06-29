@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import com.solo4.millionerquiz.ui.screens.game.GameScreen
+import com.solo4.millionerquiz.ui.screens.picklevel.PickLevelScreen
 import com.solo4.millionerquiz.ui.theme.QuizGameTheme
 
 class MainActivity : ComponentActivity() {
@@ -20,7 +20,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    GameScreen()
+                    PickLevelScreen()
                 }
             }
         }
