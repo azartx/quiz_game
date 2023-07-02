@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -17,7 +18,7 @@ import com.solo4.millionerquiz.ui.theme.QuizGameTheme
 import com.solo4.millionerquiz.ui.theme.contentPadding
 
 @Composable
-fun PickLevelScreen() {
+fun PickLevelScreen(currentLevel: Int = 0) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -29,10 +30,19 @@ fun PickLevelScreen() {
                 .fillMaxSize()
                 .background(MaterialTheme.colorScheme.onBackground, RoundedCornerShape(20.dp))
                 .padding(20.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
+            state = rememberLazyListState(currentLevel, currentLevel),
+            reverseLayout = true
         ) {
             items(20) {
-                LevelItem<Int>(isLeft = it % 2 != 0, hideLine = it == 0,  text = it.toString(), onClick = {})
+                LevelItem(
+                    isLeft = it % 2 != 0,
+                    hideLine = it == 19,
+                    text = it.toString(),
+                    onClick = {
+                        //todo navigate to the specific game level
+                    }
+                )
             }
         }
     }

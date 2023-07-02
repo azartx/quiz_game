@@ -2,6 +2,7 @@ package com.solo4.millionerquiz.ui.components
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -26,7 +27,13 @@ const val LEVEL_IMG_WIDTH = 100f
 const val LEVEL_IMG_PADDING = 50f
 
 @Composable
-fun <T> LevelItem(text: String, isLeft: Boolean, hideLine: Boolean = false, onClick: (T) -> Unit) {
+fun LevelItem(
+    text: String,
+    isLeft: Boolean,
+    hideLine: Boolean = false,
+    isClickEnabled: Boolean = false,
+    onClick: (String) -> Unit
+) {
     Column(modifier = Modifier.fillMaxWidth()) {
         if (!hideLine) {
             Canvas(
@@ -72,7 +79,9 @@ fun <T> LevelItem(text: String, isLeft: Boolean, hideLine: Boolean = false, onCl
                 if (isLeft) it.padding(start = LEVEL_IMG_PADDING.dp) else
                     it.padding(end = LEVEL_IMG_PADDING.dp)
             }
-            .align(if (isLeft) Alignment.Start else Alignment.End)) {
+            .align(if (isLeft) Alignment.Start else Alignment.End)
+            .clickable(enabled = isClickEnabled, onClick = { onClick.invoke(text) })
+        ) {
             Image(
                 modifier = Modifier
                     .width(LEVEL_IMG_WIDTH.dp)
