@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "16733512782",
+    "project_id": "solo4-quiz",
+    "storage_bucket": "solo4-quiz.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:16733512782:android:060113b053688dee050f1f",
+        "android_client_info": {
+          "package_name": "com.solo4.millionerquiz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "16733512782-uveeu3gv0usgp1ltsqs6scgh8bbqcg3a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-PizKaU144K6PuxC7GnICPN_d8EUGswA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "16733512782-uveeu3gv0usgp1ltsqs6scgh8bbqcg3a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

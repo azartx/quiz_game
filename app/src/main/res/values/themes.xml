@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen"> <!-- https://www.raywenderlich.com/32555180-splash-screen-tutorial-for-android -->
+        <item name="windowSplashScreenAnimatedIcon">@drawable/common_full_open_on_phone</item>
+        <item name="windowSplashScreenBackground">@color/white</item>
+        <item name="postSplashScreenTheme">@style/Theme.Millioner_quiz_game</item>
+    </style>
     <style name="Theme.Millioner_quiz_game" parent="android:Theme.Material.Light.NoActionBar" />
 </resources>
