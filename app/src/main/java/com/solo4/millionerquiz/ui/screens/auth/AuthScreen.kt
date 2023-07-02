@@ -18,13 +18,15 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.solo4.millionerquiz.data.auth.AuthState
 import com.solo4.millionerquiz.data.auth.Authenticated
 import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AuthScreen() {
+fun AuthScreen(navHostController: NavHostController = rememberNavController()) {
 
     val viewModel: AuthViewModel = koinViewModel()
 
