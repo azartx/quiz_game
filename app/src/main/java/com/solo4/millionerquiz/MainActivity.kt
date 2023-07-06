@@ -9,6 +9,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.rememberNavController
+import com.solo4.millionerquiz.debug.AddLevelScreen
 import com.solo4.millionerquiz.ui.navigation.AppNavHost
 import com.solo4.millionerquiz.ui.navigation.Routes
 import com.solo4.millionerquiz.ui.theme.QuizGameTheme
@@ -30,10 +31,11 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
+                    //AddLevelScreen()
                     AppNavHost(
                         navController = navController,
-                        startDestination = /*if (viewModel.isUserAuthenticated())*/
-                            Routes.MenuScreenRoute.name/* else Routes.AuthScreenRoute.route*/
+                        startDestination = if (viewModel.isUserAuthenticated())
+                            Routes.MenuScreenRoute.name else Routes.AuthScreenRoute.name
                     )
                 }
             }
