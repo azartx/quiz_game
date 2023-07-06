@@ -10,4 +10,8 @@ data class Question(
     @Stable
     @Transient
     var isAnswered: Boolean = false
+
+    override fun toString(): String {
+        return "Question{id=$id, questionText=$questionText, answers=$answers, isAnswered=$isAnswered}"
+    }
 }

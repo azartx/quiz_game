@@ -20,6 +20,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -47,9 +48,7 @@ fun GameScreen(navHostController: NavHostController = rememberNavController()) {
 
     var checkResults by remember { mutableStateOf(false) }
 
-    fun newQuestionPicked(answer: Answer) {
-        if (!viewModel.currentQuestion.value.isAnswered) pickedAnswer = answer
-    }
+    val currentState by viewModel.currentQuestion.collectAsState()
 
     fun invalidateAnswers() {
         pickedAnswer = null
@@ -84,14 +83,14 @@ fun GameScreen(navHostController: NavHostController = rememberNavController()) {
             )
             Spacer(modifier = Modifier.height(10.dp))
             Text(
-                text = "Question ${viewModel.currentQuestion.value.id}",
+                text = "Question ${currentState.id}",
                 color = MaterialTheme.colorScheme.primary,
                 style = MaterialTheme.typography.titleSmall
             )
             Spacer(modifier = Modifier.height(20.dp))
             Text(
                 modifier = Modifier.align(Alignment.CenterHorizontally),
-                text = viewModel.currentQuestion.value.questionText,
+                text = currentState.questionText,
                 color = MaterialTheme.colorScheme.primary,
                 style = MaterialTheme.typography.bodyLarge
             )
@@ -99,15 +98,17 @@ fun GameScreen(navHostController: NavHostController = rememberNavController()) {
 
             LazyColumn(modifier = Modifier
                 .fillMaxWidth(), content = {
-                items(viewModel.currentQuestion.value.answers) {
+                items(currentState.answers) { answer ->
                     AnswerItem(
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(58.dp),
-                        answer = it,
-                        isPicked = pickedAnswer?.id == it.id,
+                        answer = answer,
+                        isPicked = pickedAnswer?.id == answer.id,
                         isShowResult = checkResults,
-                        onClick = ::newQuestionPicked
+                        onClick = {
+                            if (!currentState.isAnswered) pickedAnswer = answer
+                        }
                     )
                     Spacer(modifier = Modifier.height(10.dp))
                 }

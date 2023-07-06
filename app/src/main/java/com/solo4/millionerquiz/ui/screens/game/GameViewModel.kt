@@ -1,5 +1,6 @@
 package com.solo4.millionerquiz.ui.screens.game
 
+import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -9,6 +10,7 @@ import com.solo4.millionerquiz.model.game.GameScreenState
 import com.solo4.millionerquiz.model.game.Question
 import com.solo4.millionerquiz.ui.navigation.Routes.Companion.ARG_CURRENT_LEVEL
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
 class GameViewModel(
@@ -17,27 +19,38 @@ class GameViewModel(
 ) : ViewModel() {
     private val initialQuestion = Question(0, "Loading", listOf())
 
-    val currentQuestion = mutableStateOf(initialQuestion)
+    val currentQuestion = MutableStateFlow(initialQuestion)
 
     val screenState = mutableStateOf<GameScreenState>(GameScreenState.Loading)
 
     fun initialize() {
         viewModelScope.launch(Dispatchers.IO) {
             val currentLevel = savedStateHandle.get<String>(ARG_CURRENT_LEVEL)?.toInt() ?: 1
-
             val level = levelRepository.getSpecificLevel(currentLevel) // todo can cause an exceptions
-
             currentQuestion.value = level.questions.first()
             screenState.value = GameScreenState.GameInProgress(level.questions)
         }
     }
 
     fun nextQuestion() {
-        currentQuestion.value =
-            (screenState.value as? GameScreenState.GameInProgress)
-                ?.questions?.getOrElse(currentQuestion.value.id) {
-                    screenState.value = GameScreenState.EndGame
-                    return
-                } ?: return
+        val questions = (screenState.value as? GameScreenState.GameInProgress)?.questions ?: run {
+            Log.e(TAG, "Illegal screen state")
+            return
+        }
+        val currentQuestionIndex = questions.indexOfFirst { it == currentQuestion.value }
+        if (currentQuestionIndex == -1) {
+            screenState.value = GameScreenState.EndGame
+            throw IllegalArgumentException("Current question is not found")
+        }
+        val newQuestion = questions.getOrElse(currentQuestionIndex + 1) {
+            screenState.value = GameScreenState.EndGame
+            Log.e(TAG, "Game state is EndGame now")
+            return
+        }
+        viewModelScope.launch { currentQuestion.emit(newQuestion) }
+    }
+
+    private companion object {
+        const val TAG = "GameViewModel"
     }
 }
