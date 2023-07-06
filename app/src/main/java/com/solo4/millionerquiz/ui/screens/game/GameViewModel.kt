@@ -1,16 +1,20 @@
 package com.solo4.millionerquiz.ui.screens.game
 
 import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.solo4.millionerquiz.data.repositories.questions.QuestionRepository
+import com.solo4.millionerquiz.data.repositories.questions.LevelsRepository
 import com.solo4.millionerquiz.model.game.GameScreenState
 import com.solo4.millionerquiz.model.game.Question
+import com.solo4.millionerquiz.ui.navigation.Routes.Companion.ARG_CURRENT_LEVEL
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class GameViewModel(private val quizRepository: QuestionRepository) : ViewModel() {
+class GameViewModel(
+    private val savedStateHandle: SavedStateHandle,
+    private val levelRepository: LevelsRepository
+) : ViewModel() {
     private val initialQuestion = Question(0, "Loading", listOf())
 
     val currentQuestion = mutableStateOf(initialQuestion)
@@ -19,13 +23,12 @@ class GameViewModel(private val quizRepository: QuestionRepository) : ViewModel(
 
     fun initialize() {
         viewModelScope.launch(Dispatchers.IO) {
-            val questionsResult = quizRepository.getQuestionsPool()
-            if (questionsResult.isEmpty()) {
-                throw IllegalStateException("Must not be empty!")
-            }
+            val currentLevel = savedStateHandle.get<String>(ARG_CURRENT_LEVEL)?.toInt() ?: 1
 
-            currentQuestion.value = questionsResult.first()
-            screenState.value = GameScreenState.GameInProgress(questionsResult)
+            val level = levelRepository.getSpecificLevel(currentLevel) // todo can cause an exceptions
+
+            currentQuestion.value = level.questions.first()
+            screenState.value = GameScreenState.GameInProgress(level.questions)
         }
     }
 

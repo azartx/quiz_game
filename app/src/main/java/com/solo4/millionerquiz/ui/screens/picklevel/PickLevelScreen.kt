@@ -9,16 +9,25 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.solo4.millionerquiz.ui.components.LevelItem
+import com.solo4.millionerquiz.ui.navigation.Routes
 import com.solo4.millionerquiz.ui.theme.QuizGameTheme
 import com.solo4.millionerquiz.ui.theme.contentPadding
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun PickLevelScreen(currentLevel: Int = 0) {
+fun PickLevelScreen(navHostController: NavHostController = rememberNavController()) {
+    val viewModel: PickLevelViewModel = koinViewModel()
+
+    val currentLevel = remember { viewModel.getCurrentLevel() }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -34,13 +43,14 @@ fun PickLevelScreen(currentLevel: Int = 0) {
             state = rememberLazyListState(currentLevel, currentLevel),
             reverseLayout = true
         ) {
-            items(20) {
+            items(viewModel.levelsCount.value) { level ->
                 LevelItem(
-                    isLeft = it % 2 != 0,
-                    hideLine = it == 19,
-                    text = it.toString(),
-                    onClick = {
-                        //todo navigate to the specific game level
+                    isLeft = level % 2 != 0,
+                    hideLine = level == 19,
+                    text = (level + 1).toString(),
+                    isClickEnabled = true, // todo
+                    onClick = { levelStr ->
+                        navHostController.navigate(Routes.GameRoute.nameWithArgs(levelStr))
                     }
                 )
             }

@@ -7,6 +7,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.solo4.millionerquiz.ui.screens.auth.AuthScreen
+import com.solo4.millionerquiz.ui.screens.game.GameScreen
+import com.solo4.millionerquiz.ui.screens.menu.MenuScreen
+import com.solo4.millionerquiz.ui.screens.picklevel.PickLevelScreen
 
 @Composable
 fun AppNavHost(
@@ -18,27 +21,14 @@ fun AppNavHost(
         startDestination = startDestination
     ) {
         composable(Routes.AuthScreenRoute.name) { AuthScreen(navHostController = navController) }
-        /*composable(
-            route = "$CLASSES_LIST_SCREEN/{$SUBJECT_ID}",
-            arguments = listOf(navArgument(SUBJECT_ID) { type = NavType.StringType })
-        ) { PickClassScreen(navHostController = navController) }
+        composable(Routes.MenuScreenRoute.name) { MenuScreen(navHostController = navController) }
         composable(
-            route = "$LITERATURE_LIST_SCREEN/{$SUBJECT_ID}/{$CLASS_NUMBER}",
-            arguments = listOf(
-                navArgument(SUBJECT_ID) { type = NavType.StringType },
-                navArgument(CLASS_NUMBER) { type = NavType.StringType }
-            )
-        ) { LiteratureScreen(navHostController = navController) }
+            route = Routes.PickLevelRoute.route,
+            arguments = Routes.PickLevelRoute.args
+        ) { PickLevelScreen(navHostController = navController) }
         composable(
-            route = "$TITLE_SCREEN/{$BOOK_NAME}",
-            arguments = listOf(navArgument(BOOK_NAME) { type = NavType.StringType })
-        ) { TitleScreen(navHostController = navController) }
-        composable(
-            route = "$READ_BOOK_SCREEN/{$BOOK_NAME}/{$BOOK_URL}",
-            arguments = listOf(
-                navArgument(BOOK_NAME) { type = NavType.StringType },
-                navArgument(BOOK_URL) { type = NavType.StringType }
-            )
-        ) { ReadBookScreen(navHostController = navController) }*/
+            route = Routes.GameRoute.route,
+            arguments = Routes.GameRoute.args
+        ) { GameScreen(navHostController = navController) }
     }
 }

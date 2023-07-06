@@ -19,12 +19,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.solo4.millionerquiz.R
+import com.solo4.millionerquiz.ui.navigation.Routes
 import com.solo4.millionerquiz.ui.theme.QuizGameTheme
 import com.solo4.millionerquiz.ui.theme.contentPadding
 
 @Composable
-fun MenuScreen() {
+fun MenuScreen(navHostController: NavHostController = rememberNavController()) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -46,7 +49,9 @@ fun MenuScreen() {
             Spacer(modifier = Modifier.height(20.dp))
             Button(
                 modifier = Modifier.fillMaxWidth(),
-                onClick = { /*TODO*/ }
+                onClick = {
+                    navHostController.navigate(Routes.PickLevelRoute.nameWithArgs("14"))
+                }
             ) {
                 Text(text = "Играть")
             }

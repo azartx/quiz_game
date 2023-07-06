@@ -31,6 +31,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.solo4.millionerquiz.R
 import com.solo4.millionerquiz.model.game.Answer
 import com.solo4.millionerquiz.ui.components.AnswerItem
@@ -39,7 +41,7 @@ import com.solo4.millionerquiz.ui.theme.contentPadding
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun GameScreen() {
+fun GameScreen(navHostController: NavHostController = rememberNavController()) {
     val viewModel: GameViewModel = koinViewModel()
     var pickedAnswer by remember { mutableStateOf<Answer?>(null) }
 

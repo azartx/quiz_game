@@ -8,5 +8,6 @@ data class Question(
     val answers: List<Answer>
 ) {
     @Stable
+    @Transient
     var isAnswered: Boolean = false
 }

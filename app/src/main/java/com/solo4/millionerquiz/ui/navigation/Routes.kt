@@ -1,25 +1,47 @@
 package com.solo4.millionerquiz.ui.navigation
 
+import androidx.navigation.NamedNavArgument
+import androidx.navigation.NavType
+import androidx.navigation.navArgument
+
 sealed class Routes {
-    abstract val name: String
-    object AuthScreenRoute : Routes() {
-        override val name: String = this::class.java.simpleName
-    }
-    object MenuScreenRoute : Routes() {
-        override val name: String = this::class.java.simpleName
-    }
-    /*data class LiteratureRoute(val subjectId: String, val classNumber: String) : Routes() {
-        override val name: String = this::class.java.simpleName
-        override fun toString(): String {
-            return "$LEVELS_SCREEN/$subjectId/$classNumber"
+    open val name: String = this::class.java.simpleName
+    open val route: String = ""
+    object AuthScreenRoute : Routes()
+    object MenuScreenRoute : Routes()
+    object PickLevelRoute : Routes(), Argumentative {
+        override val route: String = "$name/{$ARG_CURRENT_LEVEL}"
+        override val args: List<NamedNavArgument> = listOf(
+            navArgument(ARG_CURRENT_LEVEL) { NavType.IntType }
+        )
+
+        override fun nameWithArgs(vararg args: String): String {
+            var nameWithArgs = name
+            args.forEach { nameWithArgs += "/$it" }
+            return nameWithArgs
         }
     }
-    data class TitleRoute(val bookName: String) : Routes() {
-        override val name: String = this::class.java.simpleName
-        override fun toString(): String {
-            return "$GAME_SCREEN/$bookName"
+    object GameRoute : Routes(), Argumentative {
+        override val route: String = "$name/{$ARG_CURRENT_LEVEL}"
+        override val args: List<NamedNavArgument> = listOf(
+            navArgument(ARG_CURRENT_LEVEL) { NavType.IntType }
+        )
+
+        override fun nameWithArgs(vararg args: String): String {
+            var nameWithArgs = name
+            args.forEach { nameWithArgs += "/$it" }
+            return nameWithArgs
         }
-    }*/
+    }
+
+    companion object {
+        const val ARG_CURRENT_LEVEL = "ARG_CURRENT_LEVEL"
+    }
+}
+
+interface Argumentative {
+    val args: List<NamedNavArgument>
+    fun nameWithArgs(vararg args: String): String
 }
 
 /*

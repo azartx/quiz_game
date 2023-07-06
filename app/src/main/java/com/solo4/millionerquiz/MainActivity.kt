@@ -11,8 +11,6 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.rememberNavController
 import com.solo4.millionerquiz.ui.navigation.AppNavHost
 import com.solo4.millionerquiz.ui.navigation.Routes
-import com.solo4.millionerquiz.ui.screens.auth.AuthScreen
-import com.solo4.millionerquiz.ui.screens.picklevel.PickLevelScreen
 import com.solo4.millionerquiz.ui.theme.QuizGameTheme
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -34,8 +32,8 @@ class MainActivity : ComponentActivity() {
                 ) {
                     AppNavHost(
                         navController = navController,
-                        startDestination = if (viewModel.isUserAuthenticated())
-                            Routes.MenuScreenRoute.name else Routes.AuthScreenRoute.name
+                        startDestination = /*if (viewModel.isUserAuthenticated())*/
+                            Routes.MenuScreenRoute.name/* else Routes.AuthScreenRoute.route*/
                     )
                 }
             }
