@@ -4,6 +4,7 @@ import android.util.Log
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.solo4.millionerquiz.model.auth.User
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,9 +21,7 @@ class AuthManager {
         CoroutineScope(Dispatchers.Main).launch {
             if (!isAuthenticated()) return@launch
             authState.emit(
-                if (isUserAnonymous()) AuthState.Anon(
-                    firebaseAuth.currentUser ?: return@launch
-                ) else AuthState.ByEmail(firebaseAuth.currentUser ?: return@launch)
+                if (isUserAnonymous()) AuthState.Anon() else AuthState.ByEmail(User.map(firebaseAuth.currentUser))
             )
         }
     }
@@ -39,7 +38,7 @@ class AuthManager {
         firebaseAuth.signInAnonymously()
             .addOnSuccessListener {
                 cont.resume(true)
-                updateAuthState(AuthState.Anon(it.user!!))
+                updateAuthState(AuthState.Anon(User.map(it.user)))
             }
             .addOnFailureListener { exception ->
                 Log.e(TAG, "Error while sign in anonymously:", exception)
@@ -51,7 +50,7 @@ class AuthManager {
         firebaseAuth.createUserWithEmailAndPassword(email, password)
             .addOnSuccessListener {
                 cont.resume(true)
-                updateAuthState(AuthState.ByEmail(it.user!!))
+                updateAuthState(AuthState.ByEmail(User.map(it.user)))
             }
             .addOnFailureListener { exception ->
                 Log.e(TAG, "Error while create user by email:", exception)
@@ -63,7 +62,7 @@ class AuthManager {
         firebaseAuth.signInWithEmailAndPassword(email, password)
             .addOnSuccessListener {
                 cont.resume(true)
-                updateAuthState(AuthState.ByEmail(it.user!!))
+                updateAuthState(AuthState.ByEmail(User.map(it.user)))
             }
             .addOnFailureListener { exception ->
                 Log.e(TAG, "Error while sign in by email:", exception)
@@ -77,7 +76,7 @@ class AuthManager {
             firebaseAuth.currentUser?.linkWithCredential(credential)
                 ?.addOnSuccessListener {
                     cont.resume(true)
-                    updateAuthState(AuthState.ByEmail(it.user!!))
+                    updateAuthState(AuthState.ByEmail(User.map(it.user)))
                 }
                 ?.addOnFailureListener { exception ->
                     Log.e(TAG, "Error while create user by email from anon user:", exception)

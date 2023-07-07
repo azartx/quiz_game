@@ -1,13 +1,13 @@
 package com.solo4.millionerquiz.data.auth
 
-import com.google.firebase.auth.FirebaseUser
+import com.solo4.millionerquiz.model.auth.User
 
 sealed class AuthState {
-    object None : AuthState()
-    data class Anon(override val currentUser: FirebaseUser) : AuthState(), Authenticated
-    data class ByEmail(override val currentUser: FirebaseUser) : AuthState(), Authenticated
-}
+    abstract val user: User
+    object None : AuthState() {
+        override val user: User = User.unknown
+    }
 
-interface Authenticated {
-    val currentUser: FirebaseUser
+    data class Anon(override val user: User = User.unknown) : AuthState()
+    data class ByEmail(override val user: User) : AuthState()
 }

@@ -21,7 +21,6 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.solo4.millionerquiz.data.auth.AuthState
-import com.solo4.millionerquiz.data.auth.Authenticated
 import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -41,9 +40,9 @@ fun AuthScreen(navHostController: NavHostController = rememberNavController()) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        if (screenState is Authenticated) {
-            Text(text = (screenState as? Authenticated)?.currentUser?.email ?: "Unknown email")
-            Text(text = if ((screenState as? Authenticated)?.currentUser?.isAnonymous == true) "Anonymous" else "Signed user")
+        if (screenState !is AuthState.None) {
+            Text(text = screenState.user.email ?: "Unknown email")
+            Text(text = if (screenState.user.isAnonymous) "Anonymous" else "Signed user")
         }
 
         if (screenState !is AuthState.ByEmail) {
