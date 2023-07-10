@@ -1,5 +1,7 @@
 package com.solo4.millionerquiz.ui.screens.game
 
+import android.util.Log
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -15,7 +17,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -36,6 +40,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.solo4.millionerquiz.R
 import com.solo4.millionerquiz.model.game.Answer
+import com.solo4.millionerquiz.model.game.GameScreenState
 import com.solo4.millionerquiz.ui.components.AnswerItem
 import com.solo4.millionerquiz.ui.theme.QuizGameTheme
 import com.solo4.millionerquiz.ui.theme.contentPadding
@@ -69,7 +74,8 @@ fun GameScreen(navHostController: NavHostController = rememberNavController()) {
             modifier = Modifier
                 .fillMaxSize()
                 .background(MaterialTheme.colorScheme.onBackground, RoundedCornerShape(20.dp))
-                .padding(20.dp),
+                .padding(20.dp)
+                .verticalScroll(rememberScrollState()),
         ) {
             Image(
                 modifier = Modifier
@@ -96,9 +102,8 @@ fun GameScreen(navHostController: NavHostController = rememberNavController()) {
             )
             Spacer(modifier = Modifier.height(40.dp))
 
-            LazyColumn(modifier = Modifier
-                .fillMaxWidth(), content = {
-                items(currentState.answers) { answer ->
+
+                currentState.answers.forEach { answer ->
                     AnswerItem(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -112,11 +117,11 @@ fun GameScreen(navHostController: NavHostController = rememberNavController()) {
                     )
                     Spacer(modifier = Modifier.height(10.dp))
                 }
-            })
+
 
             Row(
                 modifier = Modifier
-                    .weight(1f)
+                    .fillMaxWidth()
                     .clickable(onClick = {
                         if (viewModel.currentQuestion.value.isAnswered) {
                             invalidateAnswers()
@@ -137,6 +142,12 @@ fun GameScreen(navHostController: NavHostController = rememberNavController()) {
                     textAlign = TextAlign.Center,
                     text = "Next"
                 )
+            }
+        }
+        if (viewModel.screenState.value is GameScreenState.EndGame) {
+            Canvas(modifier = Modifier
+                .padding(40.dp).fillMaxSize()) {
+                this.drawRect(Color.Red)
             }
         }
     }

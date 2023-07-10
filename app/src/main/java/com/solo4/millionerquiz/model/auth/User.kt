@@ -1,6 +1,9 @@
 package com.solo4.millionerquiz.model.auth
 
+import android.content.SharedPreferences
+import androidx.core.content.edit
 import com.google.firebase.auth.FirebaseUser
+import org.koin.java.KoinJavaComponent.get
 
 data class User(
     val name: String,
@@ -26,5 +29,14 @@ data class User(
                 email = firebaseUser?.email
             )
         }
+
+        var currentLevel: Int
+            get() = get<SharedPreferences>(SharedPreferences::class.java)
+                .getInt("LAST_LEVEL", 1)
+            set(value) {
+                get<SharedPreferences>(SharedPreferences::class.java).edit {
+                    putInt("LAST_LEVEL", value)
+                }
+            }
     }
 }

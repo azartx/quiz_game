@@ -39,15 +39,20 @@ class GameViewModel(
         }
         val currentQuestionIndex = questions.indexOfFirst { it == currentQuestion.value }
         if (currentQuestionIndex == -1) {
-            screenState.value = GameScreenState.EndGame
+            endGame()
             throw IllegalArgumentException("Current question is not found")
         }
         val newQuestion = questions.getOrElse(currentQuestionIndex + 1) {
-            screenState.value = GameScreenState.EndGame
+            endGame()
             Log.e(TAG, "Game state is EndGame now")
             return
         }
         viewModelScope.launch { currentQuestion.emit(newQuestion) }
+    }
+
+    private fun endGame() {
+        screenState.value = GameScreenState.EndGame
+        // todo some end game actions
     }
 
     private companion object {

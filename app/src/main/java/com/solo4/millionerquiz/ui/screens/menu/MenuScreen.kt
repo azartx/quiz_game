@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.solo4.millionerquiz.R
+import com.solo4.millionerquiz.model.auth.User
 import com.solo4.millionerquiz.ui.navigation.Routes
 import com.solo4.millionerquiz.ui.theme.QuizGameTheme
 import com.solo4.millionerquiz.ui.theme.contentPadding
@@ -60,7 +61,9 @@ fun MenuScreen(navHostController: NavHostController = rememberNavController()) {
             Button(
                 modifier = Modifier.fillMaxWidth(),
                 onClick = {
-                    navHostController.navigate(Routes.PickLevelRoute.nameWithArgs("14"))
+                    navHostController.navigate(
+                        Routes.PickLevelRoute.nameWithArgs(User.currentLevel.toString())
+                    )
                 }
             ) {
                 Text(text = "Играть")
