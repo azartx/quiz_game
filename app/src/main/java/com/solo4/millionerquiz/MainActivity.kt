@@ -23,6 +23,7 @@ import androidx.navigation.compose.rememberNavController
 import com.solo4.millionerquiz.debug.AddLevelScreen
 import com.solo4.millionerquiz.ui.navigation.AppNavHost
 import com.solo4.millionerquiz.ui.navigation.Routes
+import com.solo4.millionerquiz.ui.screens.auth.AuthScreen
 import com.solo4.millionerquiz.ui.theme.QuizGameTheme
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -49,7 +50,9 @@ class MainActivity : ComponentActivity() {
                     }
                 }
                 Surface(
-                    modifier = Modifier.fillMaxSize().imePadding(),
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .imePadding(),
                     color = MaterialTheme.colorScheme.background
                 ) {
                     Image(
@@ -65,7 +68,7 @@ class MainActivity : ComponentActivity() {
                                 Routes.MenuScreenRoute.name else Routes.AuthScreenRoute.name
                         )
                     } else {
-                        AddLevelScreen()
+                        if (viewModel.isUserAuthenticated()) AddLevelScreen() else AuthScreen()
                     }
                 }
             }
