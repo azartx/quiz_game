@@ -6,10 +6,13 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.solo4.millionerquiz.data.repositories.questions.LevelsRepository
+import com.solo4.millionerquiz.model.auth.User
+import com.solo4.millionerquiz.model.game.Answer
 import com.solo4.millionerquiz.model.game.GameScreenState
 import com.solo4.millionerquiz.model.game.Question
 import com.solo4.millionerquiz.ui.navigation.Routes.Companion.ARG_CURRENT_LEVEL
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
@@ -22,6 +25,10 @@ class GameViewModel(
     val currentQuestion = MutableStateFlow(initialQuestion)
 
     val screenState = mutableStateOf<GameScreenState>(GameScreenState.Loading)
+
+    val score = MutableStateFlow(0)
+
+    val scoreForEndGameUI = mutableStateOf(0)
 
     fun initialize() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -52,10 +59,29 @@ class GameViewModel(
 
     private fun endGame() {
         screenState.value = GameScreenState.EndGame
-        // todo some end game actions
+        User.currentLevel =+ 1
+
+        viewModelScope.launch {
+            for (number in 0..score.value step 40) {
+                scoreForEndGameUI.value = number
+                delay(150)
+            }
+        }
+    }
+
+    fun markCurrentQuestionAsAnswered(pickedAnswer: Answer?) {
+        viewModelScope.launch {
+            currentQuestion.value.isAnswered = true
+            if (pickedAnswer == null) return@launch
+            if (pickedAnswer == currentQuestion.value.answers.first { it.isRight }) {
+                score.emit(score.value + SCORE_POINTS_RIGHT_ANSWER)
+            }
+        }
     }
 
     private companion object {
         const val TAG = "GameViewModel"
+
+        const val SCORE_POINTS_RIGHT_ANSWER = 150
     }
 }

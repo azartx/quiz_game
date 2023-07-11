@@ -9,7 +9,6 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -26,8 +25,6 @@ import org.koin.androidx.compose.koinViewModel
 fun PickLevelScreen(navHostController: NavHostController = rememberNavController()) {
     val viewModel: PickLevelViewModel = koinViewModel()
 
-    val currentLevel = remember { viewModel.getCurrentLevel() }
-
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -40,7 +37,7 @@ fun PickLevelScreen(navHostController: NavHostController = rememberNavController
                 .background(MaterialTheme.colorScheme.onBackground, RoundedCornerShape(20.dp))
                 .padding(20.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
-            state = rememberLazyListState(currentLevel, currentLevel),
+            state = rememberLazyListState(viewModel.currentLevel, viewModel.currentLevel),
             reverseLayout = true
         ) {
             items(viewModel.levelsCount.value) { level ->
@@ -48,7 +45,7 @@ fun PickLevelScreen(navHostController: NavHostController = rememberNavController
                     isLeft = level % 2 != 0,
                     hideLine = level == 19,
                     text = (level + 1).toString(),
-                    isClickEnabled = true, // todo
+                    isClickEnabled = viewModel.isLevelClickable(level), // todo
                     onClick = { levelStr ->
                         navHostController.navigate(Routes.GameRoute.nameWithArgs(levelStr))
                     }

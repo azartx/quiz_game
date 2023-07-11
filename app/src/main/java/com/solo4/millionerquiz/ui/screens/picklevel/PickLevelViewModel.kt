@@ -5,7 +5,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.solo4.millionerquiz.data.repositories.questions.LevelsRepository
-import com.solo4.millionerquiz.ui.navigation.Routes.Companion.ARG_CURRENT_LEVEL
+import com.solo4.millionerquiz.model.auth.User
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -22,9 +22,9 @@ class PickLevelViewModel(
         }
     }
 
-    fun getCurrentLevel(): Int = savedStateHandle
-        .get<String>(ARG_CURRENT_LEVEL)
-        ?.toInt()
-        ?.minus(1)
-        ?: 0
+    val currentLevel = User.currentLevel
+
+    fun isLevelClickable(number: Int): Boolean {
+        return number <= currentLevel
+    }
 }
