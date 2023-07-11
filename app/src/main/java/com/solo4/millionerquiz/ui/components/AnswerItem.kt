@@ -25,9 +25,12 @@ import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.onSizeChanged
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.unit.sp
 
 @Composable
 fun AnswerItem(
@@ -40,8 +43,8 @@ fun AnswerItem(
     val bgColor by animateColorAsState(
         targetValue = if (isShowResult)
             if (answer.isRight) Color.Green else
-                if (isPicked) Color.Red else Color.Cyan
-        else Color.Cyan,
+                if (isPicked) Color.Red else MaterialTheme.colorScheme.secondary
+        else MaterialTheme.colorScheme.secondary,
         animationSpec = tween(durationMillis = 300)
     )
 
@@ -77,7 +80,11 @@ fun AnswerItem(
                 )
             }
 
-            Text(modifier = Modifier.align(Alignment.Center), text = answer.text)
+            Text(
+                modifier = Modifier.align(Alignment.Center),
+                text = answer.text,
+                style = TextStyle(fontSize = 16.sp, color = Color.Black)
+            )
         }
     }
 }

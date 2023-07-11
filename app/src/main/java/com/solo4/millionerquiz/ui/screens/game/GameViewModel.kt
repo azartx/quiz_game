@@ -20,7 +20,7 @@ class GameViewModel(
     private val savedStateHandle: SavedStateHandle,
     private val levelRepository: LevelsRepository
 ) : ViewModel() {
-    private val initialQuestion = Question(0, "Loading", listOf())
+    private val initialQuestion = Question(0, "Loading", "", listOf())
 
     val currentQuestion = MutableStateFlow(initialQuestion)
 

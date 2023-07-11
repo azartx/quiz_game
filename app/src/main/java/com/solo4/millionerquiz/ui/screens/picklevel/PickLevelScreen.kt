@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -24,32 +25,34 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun PickLevelScreen(navHostController: NavHostController = rememberNavController()) {
     val viewModel: PickLevelViewModel = koinViewModel()
-
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
             .padding(contentPadding)
     ) {
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(MaterialTheme.colorScheme.onBackground, RoundedCornerShape(20.dp))
-                .padding(20.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            state = rememberLazyListState(viewModel.currentLevel, viewModel.currentLevel),
-            reverseLayout = true
-        ) {
-            items(viewModel.levelsCount.value) { level ->
-                LevelItem(
-                    isLeft = level % 2 != 0,
-                    hideLine = level == 19,
-                    text = (level + 1).toString(),
-                    isClickEnabled = viewModel.isLevelClickable(level), // todo
-                    onClick = { levelStr ->
-                        navHostController.navigate(Routes.GameRoute.nameWithArgs(levelStr))
-                    }
-                )
+        if (viewModel.levelsCount.value == 0) {
+            CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+        } else {
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(MaterialTheme.colorScheme.background, RoundedCornerShape(20.dp))
+                    .padding(20.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                state = rememberLazyListState(viewModel.currentLevel, viewModel.currentLevel),
+                reverseLayout = true
+            ) {
+                items(viewModel.levelsCount.value) { level ->
+                    LevelItem(
+                        isLeft = level % 2 != 0,
+                        hideLine = level == (viewModel.levelsCount.value - 1),
+                        text = (level + 1).toString(),
+                        isClickEnabled = viewModel.isLevelClickable(level),
+                        onClick = { levelStr ->
+                            navHostController.navigate(Routes.GameRoute.nameWithArgs(levelStr))
+                        }
+                    )
+                }
             }
         }
     }

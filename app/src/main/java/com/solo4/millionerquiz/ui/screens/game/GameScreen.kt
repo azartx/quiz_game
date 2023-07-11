@@ -1,6 +1,5 @@
 package com.solo4.millionerquiz.ui.screens.game
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -37,6 +36,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import coil.compose.AsyncImage
 import com.solo4.millionerquiz.R
 import com.solo4.millionerquiz.model.game.Answer
 import com.solo4.millionerquiz.model.game.GameScreenState
@@ -63,30 +63,32 @@ fun GameScreen(navHostController: NavHostController = rememberNavController()) {
     LaunchedEffect(key1 = null, block = {
         viewModel.initialize()
     })
-
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
             .padding(contentPadding)
     ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(MaterialTheme.colorScheme.onBackground, RoundedCornerShape(20.dp))
+                .background(MaterialTheme.colorScheme.background, RoundedCornerShape(20.dp))
                 .padding(20.dp)
                 .verticalScroll(rememberScrollState()),
         ) {
-            Image(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .align(Alignment.CenterHorizontally)
-                    .defaultMinSize(minHeight = 200.dp)
-                    .fillMaxWidth(200f)
-                    .background(Color.LightGray, RoundedCornerShape(10.dp)),
-                painter = painterResource(id = R.drawable.ic_placeholder),
-                contentDescription = "Question image"
-            )
+            if (currentState.imageUrl.isNotBlank()) {
+                AsyncImage(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .align(Alignment.CenterHorizontally)
+                        .defaultMinSize(minHeight = 200.dp)
+                        .fillMaxWidth(200f)
+                        .background(Color.LightGray, RoundedCornerShape(10.dp)),
+                    model = currentState.imageUrl,
+                    placeholder = painterResource(id = R.drawable.question_placeholder),
+                    error = painterResource(id = R.drawable.question_placeholder),
+                    contentDescription = "Question image"
+                )
+            }
             Spacer(modifier = Modifier.height(10.dp))
             Text(
                 text = "Question ${currentState.id}",
@@ -117,8 +119,7 @@ fun GameScreen(navHostController: NavHostController = rememberNavController()) {
                 )
                 Spacer(modifier = Modifier.height(10.dp))
             }
-
-
+            Spacer(modifier = Modifier.height(30.dp))
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -136,11 +137,12 @@ fun GameScreen(navHostController: NavHostController = rememberNavController()) {
             ) {
                 Text(
                     modifier = Modifier
-                        .background(Color.Cyan, RoundedCornerShape(10.dp))
+                        .background(MaterialTheme.colorScheme.primary, RoundedCornerShape(10.dp))
                         .fillMaxWidth()
                         .padding(vertical = 16.dp),
                     textAlign = TextAlign.Center,
-                    text = "Next"
+                    style = TextStyle(fontSize = 16.sp, color = Color.Black),
+                    text = if (currentState.isAnswered) "Next" else "Answer"
                 )
             }
         }

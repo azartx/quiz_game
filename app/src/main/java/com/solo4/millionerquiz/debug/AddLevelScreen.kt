@@ -35,6 +35,7 @@ fun AddLevelScreen() {
 
     var questionId by remember { mutableStateOf("1") }
     var questionText by remember { mutableStateOf("") }
+    var questionImageUrl by remember { mutableStateOf("https://") }
 
     var answer1Id by remember { mutableStateOf("1") }
     var answer2Id by remember { mutableStateOf("2") }
@@ -70,9 +71,10 @@ fun AddLevelScreen() {
 
         Text(text = "Level number: $questionNumber")
 
-        Text(text = "Question id and text")
+        Text(text = "Question id and text and imageUrl")
         TextField(value = questionId, onValueChange = { questionId = it })
         TextField(value = questionText, onValueChange = { questionText = it })
+        TextField(value = questionImageUrl, onValueChange = { questionImageUrl = it })
 
         Spacer(modifier = Modifier.height(48.dp))
 
@@ -109,6 +111,7 @@ fun AddLevelScreen() {
                 Question(
                     questionId.toInt(),
                     questionText,
+                    questionImageUrl,
                     listOf(
                         Answer(answer1Id.toInt(), answer1Text, answer1IsRight.toBoolean()),
                         Answer(answer2Id.toInt(), answer2Text, answer2IsRight.toBoolean()),
@@ -139,6 +142,7 @@ fun AddLevelScreen() {
             answer4Id = "4"
             answer4Text = ""
             answer4IsRight = ""
+            questionImageUrl = "https://"
         }) {
             Text(text = "Clear")
         }

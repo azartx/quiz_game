@@ -6,6 +6,9 @@ import com.solo4.millionerquiz.data.auth.AuthManager
 class MenuViewModel(
     private val authManager: AuthManager
 ) : ViewModel() {
+    fun getUserImage(): String {
+        return authManager.authState.value.user.profileImageUrl
+    }
 
     val authState = authManager.authState
 }
