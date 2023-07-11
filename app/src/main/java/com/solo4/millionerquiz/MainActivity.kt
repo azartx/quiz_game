@@ -20,6 +20,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
 import androidx.navigation.compose.rememberNavController
+import com.solo4.millionerquiz.debug.AddLevelScreen
 import com.solo4.millionerquiz.ui.navigation.AppNavHost
 import com.solo4.millionerquiz.ui.navigation.Routes
 import com.solo4.millionerquiz.ui.theme.QuizGameTheme
@@ -57,12 +58,15 @@ class MainActivity : ComponentActivity() {
                         contentDescription = "Background",
                         contentScale = ContentScale.Crop
                     )
-                    //AddLevelScreen()
-                    AppNavHost(
-                        navController = navController,
-                        startDestination = if (viewModel.isUserAuthenticated())
-                            Routes.MenuScreenRoute.name else Routes.AuthScreenRoute.name
-                    )
+                    if (BuildConfig.isFullApp) {
+                        AppNavHost(
+                            navController = navController,
+                            startDestination = if (viewModel.isUserAuthenticated())
+                                Routes.MenuScreenRoute.name else Routes.AuthScreenRoute.name
+                        )
+                    } else {
+                        AddLevelScreen()
+                    }
                 }
             }
         }
