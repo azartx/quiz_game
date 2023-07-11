@@ -1,0 +1,274 @@
+{
+  "questions": [
+    {
+      "imageUrl": "https://media.vanityfair.com/photos/63d16b6b14e07ec307e8d624/1:1/w_1997,h_1997,c_limit/GettyImages-1414522654.jpg",
+      "answers": [
+        {
+          "isRight": true,
+          "id": 1,
+          "text": "Canada"
+        },
+        {
+          "isRight": false,
+          "id": 2,
+          "text": "USA"
+        },
+        {
+          "isRight": false,
+          "text": "France",
+          "id": 3
+        },
+        {
+          "isRight": false,
+          "id": 4,
+          "text": "England"
+        }
+      ],
+      "id": 1,
+      "questionText": "What country is Justin Bieber from?"
+    },
+    {
+      "imageUrl": "https://www.tadviser.ru/images/7/71/IMG_20210127_163306_606.jpg",
+      "answers": [
+        {
+          "isRight": true,
+          "text": "Alone at home",
+          "id": 1
+        },
+        {
+          "isRight": false,
+          "id": 2,
+          "text": "Richie Rich"
+        },
+        {
+          "isRight": false,
+          "id": 3,
+          "text": "Little rascals"
+        },
+        {
+          "isRight": false,
+          "id": 4,
+          "text": "New year story"
+        }
+      ],
+      "id": 2,
+      "questionText": "What holiday movie sequel did Donald Trump star in?"
+    },
+    {
+      "imageUrl": "https://phonoteka.org/uploads/posts/2021-04/1618445377_39-phonoteka_org-p-gubka-bob-fon-45.jpg",
+      "answers": [
+        {
+          "isRight": false,
+          "text": "Flounder",
+          "id": 1
+        },
+        {
+          "isRight": false,
+          "text": "Nemo",
+          "id": 2
+        },
+        {
+          "isRight": false,
+          "text": "Rick and Morty",
+          "id": 3
+        },
+        {
+          "isRight": true,
+          "text": "Sponge Bob Square Pants",
+          "id": 4
+        }
+      ],
+      "id": 3,
+      "questionText": "Which cartoon character lives in a pineapple underwater?"
+    },
+    {
+      "imageUrl": "https://ethnomir.ru/upload/medialibrary/cd1/ben1.jpg",
+      "answers": [
+        {
+          "isRight": false,
+          "text": "Battleship",
+          "id": 1
+        },
+        {
+          "isRight": false,
+          "id": 2,
+          "text": "Calabash"
+        },
+        {
+          "isRight": true,
+          "text": "Big Ben",
+          "id": 3
+        },
+        {
+          "isRight": false,
+          "text": "Mummy",
+          "id": 4
+        }
+      ],
+      "id": 4,
+      "questionText": "What is the name of the clock bell in the Palace of Westminster in London?"
+    },
+    {
+      "imageUrl": "https://mediabrest.by/editor_files/images/images/news/1%289%29.jpg",
+      "answers": [
+        {
+          "isRight": false,
+          "text": "Pepsi",
+          "id": 1
+        },
+        {
+          "isRight": false,
+          "id": 2,
+          "text": "Fanta"
+        },
+        {
+          "isRight": true,
+          "text": "Coca Cola",
+          "id": 3
+        },
+        {
+          "isRight": false,
+          "text": "Snaple",
+          "id": 4
+        }
+      ],
+      "id": 5,
+      "questionText": "What soft drink was the first to be taken into space?"
+    },
+    {
+      "imageUrl": "https://cdnn21.img.ria.ru/images/91140/85/911408501_0:45:2000:1170_600x0_80_0_0_a7fbc74a15f0777a3cc979151791eb89.jpg",
+      "answers": [
+        {
+          "isRight": false,
+          "text": "Barbie",
+          "id": 1
+        },
+        {
+          "isRight": true,
+          "id": 2,
+          "text": "Mister Potato Head"
+        },
+        {
+          "isRight": false,
+          "text": "Oven with Light Baking",
+          "id": 3
+        },
+        {
+          "isRight": false,
+          "text": "Rocket Racer",
+          "id": 4
+        }
+      ],
+      "id": 6,
+      "questionText": "What was the first toy to be advertised on television?"
+    },
+    {
+      "imageUrl": "https://www.sodul.com/upload/resize_cache/iblock/151/878_556_2/151bb725edeb091041654b07bfedabba.jpg",
+      "answers": [
+        {
+          "isRight": false,
+          "text": "Spain",
+          "id": 1
+        },
+        {
+          "isRight": false,
+          "id": 2,
+          "text": "Brazil"
+        },
+        {
+          "isRight": true,
+          "text": "Czech",
+          "id": 3
+        },
+        {
+          "isRight": false,
+          "text": "England",
+          "id": 4
+        }
+      ],
+      "id": 7,
+      "questionText": "What country is Prague in?"
+    },
+    {
+      "imageUrl": "https://nastroyvse.ru/wp-content/uploads/2016/09/elektronnaya-pochta-vokrug-nas.jpg",
+      "answers": [
+        {
+          "isRight": true,
+          "text": "Outlook",
+          "id": 1
+        },
+        {
+          "isRight": false,
+          "id": 2,
+          "text": "Yahoo Mail"
+        },
+        {
+          "isRight": false,
+          "text": "Gmail",
+          "id": 3
+        },
+        {
+          "isRight": false,
+          "text": "iCloud Mail",
+          "id": 4
+        }
+      ],
+      "id": 8,
+      "questionText": "Which email service is owned by Microsoft?"
+    },
+    {
+      "imageUrl": "https://kipmu.ru/wp-content/uploads/slnchnstm.jpg",
+      "answers": [
+        {
+          "isRight": false,
+          "text": "Earth",
+          "id": 1
+        },
+        {
+          "isRight": false,
+          "id": 2,
+          "text": "Venus"
+        },
+        {
+          "isRight": false,
+          "text": "Mars",
+          "id": 3
+        },
+        {
+          "isRight": true,
+          "text": "Mercury",
+          "id": 4
+        }
+      ],
+      "id": 9,
+      "questionText": "What is the smallest planet in our solar system?"
+    },
+    {
+      "imageUrl": "https://i.ytimg.com/vi/ETS0P02oAeU/maxresdefault.jpg",
+      "answers": [
+        {
+          "isRight": true,
+          "text": "Red",
+          "id": 1
+        },
+        {
+          "isRight": false,
+          "id": 2,
+          "text": "Blue"
+        },
+        {
+          "isRight": false,
+          "text": "Green",
+          "id": 3
+        },
+        {
+          "isRight": false,
+          "text": "Yellow",
+          "id": 4
+        }
+      ],
+      "id": 10,
+      "questionText": "What color was the pill Neo takes in The Matrix?"
+    }
+  ]
+}

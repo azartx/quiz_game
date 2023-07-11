@@ -1,5 +1,6 @@
 package com.solo4.millionerquiz.debug
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -18,6 +19,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.solo4.millionerquiz.model.game.Answer
 import com.solo4.millionerquiz.model.game.Question
@@ -35,7 +37,7 @@ fun AddLevelScreen() {
 
     var questionId by remember { mutableStateOf("1") }
     var questionText by remember { mutableStateOf("") }
-    var questionImageUrl by remember { mutableStateOf("https://") }
+    var questionImageUrl by remember { mutableStateOf("") }
 
     var answer1Id by remember { mutableStateOf("1") }
     var answer2Id by remember { mutableStateOf("2") }
@@ -56,53 +58,58 @@ fun AddLevelScreen() {
         modifier = Modifier
             .fillMaxSize()
             .padding(vertical = 20.dp)
+            .background(Color.LightGray)
             .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
+        Spacer(modifier = Modifier.height(40.dp))
         Text(text = "NewLevelNumber:")
-        TextField(value = levelNumber, onValueChange = { levelNumber = it })
+        TextField(value = levelNumber, onValueChange = { levelNumber = it }, placeholder = { Text(text = "Level number") })
 
         Button(onClick = { viewModel.createLevel(levelNumber) }) {
             Text(text = "Create level")
         }
 
+        Button(onClick = { viewModel.addPastedJSON() }) {
+            Text(text = "!!!Add JSON from code!!!")
+        }
+
         Spacer(modifier = Modifier.height(20.dp))
 
-        Text(text = "Level number: $questionNumber")
+        Text(text = "Question number: $questionNumber")
 
         Text(text = "Question id and text and imageUrl")
-        TextField(value = questionId, onValueChange = { questionId = it })
-        TextField(value = questionText, onValueChange = { questionText = it })
-        TextField(value = questionImageUrl, onValueChange = { questionImageUrl = it })
+        TextField(value = questionId, onValueChange = { questionId = it }, placeholder = { Text(text = "Id") })
+        TextField(value = questionText, onValueChange = { questionText = it }, placeholder = { Text(text = "Text") })
+        TextField(value = questionImageUrl, onValueChange = { questionImageUrl = it }, placeholder = { Text(text = "Image") })
 
         Spacer(modifier = Modifier.height(48.dp))
 
         Text(text = "Answer 1: id, text, isRight")
-        TextField(value = answer1Id, onValueChange = { answer1Id = it })
-        TextField(value = answer1Text, onValueChange = { answer1Text = it })
-        TextField(value = answer1IsRight, onValueChange = { answer1IsRight = it })
+        TextField(value = answer1Id, onValueChange = { answer1Id = it }, placeholder = { Text(text = "Id") })
+        TextField(value = answer1Text, onValueChange = { answer1Text = it }, placeholder = { Text(text = "Text") })
+        TextField(value = answer1IsRight, onValueChange = { answer1IsRight = it }, placeholder = { Text(text = "IsRight") })
 
         Spacer(modifier = Modifier.height(20.dp))
 
         Text(text = "Answer 2: id, text, isRight")
-        TextField(value = answer2Id, onValueChange = { answer2Id = it })
-        TextField(value = answer2Text, onValueChange = { answer2Text = it })
-        TextField(value = answer2IsRight, onValueChange = { answer2IsRight = it })
+        TextField(value = answer2Id, onValueChange = { answer2Id = it }, placeholder = { Text(text = "Id") })
+        TextField(value = answer2Text, onValueChange = { answer2Text = it }, placeholder = { Text(text = "Text") })
+        TextField(value = answer2IsRight, onValueChange = { answer2IsRight = it }, placeholder = { Text(text = "IsRight") })
 
         Spacer(modifier = Modifier.height(20.dp))
 
         Text(text = "Answer 3: id, text, isRight")
-        TextField(value = answer3Id, onValueChange = { answer3Id = it })
-        TextField(value = answer3Text, onValueChange = { answer3Text = it })
-        TextField(value = answer3IsRight, onValueChange = { answer3IsRight = it })
+        TextField(value = answer3Id, onValueChange = { answer3Id = it }, placeholder = { Text(text = "Id") })
+        TextField(value = answer3Text, onValueChange = { answer3Text = it }, placeholder = { Text(text = "Text") })
+        TextField(value = answer3IsRight, onValueChange = { answer3IsRight = it }, placeholder = { Text(text = "IsRight") })
 
         Spacer(modifier = Modifier.height(20.dp))
 
         Text(text = "Answer 4: id, text, isRight")
-        TextField(value = answer4Id, onValueChange = { answer4Id = it })
-        TextField(value = answer4Text, onValueChange = { answer4Text = it })
-        TextField(value = answer4IsRight, onValueChange = { answer4IsRight = it })
+        TextField(value = answer4Id, onValueChange = { answer4Id = it }, placeholder = { Text(text = "Id") })
+        TextField(value = answer4Text, onValueChange = { answer4Text = it }, placeholder = { Text(text = "Text") })
+        TextField(value = answer4IsRight, onValueChange = { answer4IsRight = it }, placeholder = { Text(text = "IsRight") })
 
         Spacer(modifier = Modifier.height(20.dp))
 
@@ -142,7 +149,7 @@ fun AddLevelScreen() {
             answer4Id = "4"
             answer4Text = ""
             answer4IsRight = ""
-            questionImageUrl = "https://"
+            questionImageUrl = ""
         }) {
             Text(text = "Clear")
         }
