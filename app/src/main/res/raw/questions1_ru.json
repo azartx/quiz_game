@@ -1,0 +1,274 @@
+{
+  "questions": [
+    {
+      "imageUrl": "https://media.vanityfair.com/photos/63d16b6b14e07ec307e8d624/1:1/w_1997,h_1997,c_limit/GettyImages-1414522654.jpg",
+      "answers": [
+        {
+          "isRight": true,
+          "id": 1,
+          "text": "Канада"
+        },
+        {
+          "isRight": false,
+          "id": 2,
+          "text": "США"
+        },
+        {
+          "isRight": false,
+          "text": "Франция",
+          "id": 3
+        },
+        {
+          "isRight": false,
+          "id": 4,
+          "text": "Англия"
+        }
+      ],
+      "id": 1,
+      "questionText": "Из какой страны родом Джастин Бибер?"
+    },
+    {
+      "imageUrl": "https://www.tadviser.ru/images/7/71/IMG_20210127_163306_606.jpg",
+      "answers": [
+        {
+          "isRight": true,
+          "id": 1,
+          "text": "Один дома"
+        },
+        {
+          "isRight": false,
+          "id": 2,
+          "text": "Ричи Рич"
+        },
+        {
+          "isRight": false,
+          "text": "Маленькие негодяи",
+          "id": 3
+        },
+        {
+          "isRight": false,
+          "id": 4,
+          "text": "Новогодняя история"
+        }
+      ],
+      "id": 2,
+      "questionText": "В сиквеле какого праздничного фильма снялся Дональд Трамп?"
+    },
+    {
+      "imageUrl": "https://phonoteka.org/uploads/posts/2021-04/1618445377_39-phonoteka_org-p-gubka-bob-fon-45.jpg",
+      "answers": [
+        {
+          "isRight": false,
+          "id": 1,
+          "text": "Камбала"
+        },
+        {
+          "isRight": false,
+          "id": 2,
+          "text": "Немо"
+        },
+        {
+          "isRight": false,
+          "text": "Рик и Морти",
+          "id": 3
+        },
+        {
+          "isRight": true,
+          "id": 4,
+          "text": "Губка Боб Квадратные Штаны"
+        }
+      ],
+      "id": 3,
+      "questionText": "Какой герой мультфильма живет в ананасе под водой?"
+    },
+    {
+      "imageUrl": "https://ethnomir.ru/upload/medialibrary/cd1/ben1.jpg",
+      "answers": [
+        {
+          "isRight": false,
+          "id": 1,
+          "text": "Броненосец"
+        },
+        {
+          "isRight": false,
+          "id": 2,
+          "text": "Калабаш"
+        },
+        {
+          "isRight": true,
+          "text": "Биг Бен",
+          "id": 3
+        },
+        {
+          "isRight": false,
+          "id": 4,
+          "text": "Мумия"
+        }
+      ],
+      "id": 4,
+      "questionText": "Как называется колокол часов Вестминстерского дворца в Лондоне?"
+    },
+    {
+      "imageUrl": "https://mediabrest.by/editor_files/images/images/news/1%289%29.jpg",
+      "answers": [
+        {
+          "isRight": false,
+          "id": 1,
+          "text": "Пепси"
+        },
+        {
+          "isRight": false,
+          "id": 2,
+          "text": "Фанта"
+        },
+        {
+          "isRight": true,
+          "text": "Кока-Кола",
+          "id": 3
+        },
+        {
+          "isRight": false,
+          "id": 4,
+          "text": "Снапл"
+        }
+      ],
+      "id": 5,
+      "questionText": "Какой безалкогольный напиток первым был взят в космос?"
+    },
+    {
+      "imageUrl": "https://cdnn21.img.ria.ru/images/91140/85/911408501_0:45:2000:1170_600x0_80_0_0_a7fbc74a15f0777a3cc979151791eb89.jpg",
+      "answers": [
+        {
+          "isRight": false,
+          "id": 1,
+          "text": "Барби"
+        },
+        {
+          "isRight": true,
+          "id": 2,
+          "text": "Мистер Картофельная Голова"
+        },
+        {
+          "isRight": false,
+          "text": "Духовка с Легкой Выпечкой",
+          "id": 3
+        },
+        {
+          "isRight": false,
+          "id": 4,
+          "text": "Ракетный Гонщик"
+        }
+      ],
+      "id": 6,
+      "questionText": "Какая игрушка была первой, которую рекламировали по телевидению?"
+    },
+    {
+      "imageUrl": "https://www.sodul.com/upload/resize_cache/iblock/151/878_556_2/151bb725edeb091041654b07bfedabba.jpg",
+      "answers": [
+        {
+          "isRight": false,
+          "id": 1,
+          "text": "Испания"
+        },
+        {
+          "isRight": false,
+          "id": 2,
+          "text": "Бразилия"
+        },
+        {
+          "isRight": true,
+          "text": "Чехия",
+          "id": 3
+        },
+        {
+          "isRight": false,
+          "id": 4,
+          "text": "Англия"
+        }
+      ],
+      "id": 7,
+      "questionText": "В какой стране находится Прага?"
+    },
+    {
+      "imageUrl": "https://nastroyvse.ru/wp-content/uploads/2016/09/elektronnaya-pochta-vokrug-nas.jpg",
+      "answers": [
+        {
+          "isRight": true,
+          "id": 1,
+          "text": "Outlook"
+        },
+        {
+          "isRight": false,
+          "id": 2,
+          "text": "Yahoo Mail"
+        },
+        {
+          "isRight": false,
+          "text": "Gmail",
+          "id": 3
+        },
+        {
+          "isRight": false,
+          "id": 4,
+          "text": "iCloud Mail"
+        }
+      ],
+      "id": 8,
+      "questionText": "Какая служба электронной почты принадлежит компании Microsoft?"
+    },
+    {
+      "imageUrl": "https://kipmu.ru/wp-content/uploads/slnchnstm.jpg",
+      "answers": [
+        {
+          "isRight": false,
+          "id": 1,
+          "text": "Земля"
+        },
+        {
+          "isRight": false,
+          "id": 2,
+          "text": "Венера"
+        },
+        {
+          "isRight": false,
+          "text": "Марс",
+          "id": 3
+        },
+        {
+          "isRight": true,
+          "id": 4,
+          "text": "Меркурий"
+        }
+      ],
+      "id": 9,
+      "questionText": "Какая самая маленькая планета в нашей Солнечной системе?"
+    },
+    {
+      "imageUrl": "https://i.ytimg.com/vi/ETS0P02oAeU/maxresdefault.jpg",
+      "answers": [
+        {
+          "isRight": true,
+          "id": 1,
+          "text": "Красный"
+        },
+        {
+          "isRight": false,
+          "id": 2,
+          "text": "Синий"
+        },
+        {
+          "isRight": false,
+          "text": "Зеленый",
+          "id": 3
+        },
+        {
+          "isRight": false,
+          "id": 4,
+          "text": "Желтый"
+        }
+      ],
+      "id": 10,
+      "questionText": "Какого цвета была таблетка, которую принимает Нео в фильме “Матрица”?"
+    }
+  ]
+}

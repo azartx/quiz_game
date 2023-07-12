@@ -1,0 +1,274 @@
+{
+  "questions": [
+    {
+      "imageUrl": "https://cdnn21.img.ria.ru/images/155677/93/1556779393_0:0:2048:1152_1920x0_80_0_0_50be0c9eb9a15671aef1464725c815e8.jpg",
+      "answers": [
+        {
+          "isRight": true,
+          "id": 1,
+          "text": "Большой"
+        },
+        {
+          "isRight": false,
+          "id": 2,
+          "text": "Форрест Гамп"
+        },
+        {
+          "isRight": false,
+          "text": "Аполлон 13",
+          "id": 3
+        },
+        {
+          "isRight": false,
+          "id": 4,
+          "text": "Вам письмо"
+        }
+      ],
+      "id": 1,
+      "questionText": "За какой фильм Том Хэнкс получил свою первую номинацию на премию “Оскар”?"
+    },
+    {
+      "imageUrl": "https://www.natlaurel.com/wp-content/uploads/2018/08/mauglee-akela-bagheera-960x640.jpg",
+      "answers": [
+        {
+          "isRight": false,
+          "id": 1,
+          "text": "Лисы"
+        },
+        {
+          "isRight": false,
+          "id": 2,
+          "text": "Приматы"
+        },
+        {
+          "isRight": true,
+          "text": "Волки",
+          "id": 3
+        },
+        {
+          "isRight": false,
+          "id": 4,
+          "text": "Медведи"
+        }
+      ],
+      "id": 2,
+      "questionText": "Какие животные воспитывали Маугли в “Книге джунглей”?"
+    },
+    {
+      "imageUrl": "https://radior.lt/wp-content/uploads/2021/04/7-2.jpg",
+      "answers": [
+        {
+          "isRight": false,
+          "id": 1,
+          "text": "Майк Тайсон"
+        },
+        {
+          "isRight": true,
+          "id": 2,
+          "text": "Мухаммед Али"
+        },
+        {
+          "isRight": false,
+          "text": "Флойд Мейвезер",
+          "id": 3
+        },
+        {
+          "isRight": false,
+          "id": 4,
+          "text": "Оскар Дела Хойя"
+        }
+      ],
+      "id": 3,
+      "questionText": "Какой боксер был известен как “The Greatest” и “The People’s Champion”?"
+    },
+    {
+      "imageUrl": "https://www.runlab.ru/f/upload/2022-01-10_16.02.17.jpg",
+      "answers": [
+        {
+          "isRight": false,
+          "id": 1,
+          "text": "Италия"
+        },
+        {
+          "isRight": false,
+          "id": 2,
+          "text": "Япония"
+        },
+        {
+          "isRight": true,
+          "text": "Греция",
+          "id": 3
+        },
+        {
+          "isRight": false,
+          "id": 4,
+          "text": "Франция"
+        }
+      ],
+      "id": 4,
+      "questionText": "В какой стране были проведены первые Олимпийские игры?"
+    },
+    {
+      "imageUrl": "https://readrate.com/img/pictures/basic/254/254890/2548907/w816-8f7e146d.jpg",
+      "answers": [
+        {
+          "isRight": false,
+          "id": 1,
+          "text": "Взрывающийся щелчок"
+        },
+        {
+          "isRight": false,
+          "id": 2,
+          "text": "Скачки на крылатых лошадях"
+        },
+        {
+          "isRight": false,
+          "text": "КвадПод",
+          "id": 3
+        },
+        {
+          "isRight": true,
+          "id": 4,
+          "text": "Квиддич"
+        }
+      ],
+      "id": 5,
+      "questionText": "В какой вид спорта, который играют на метлах в Гарри Поттере?"
+    },
+    {
+      "imageUrl": "https://res.klook.com/image/upload/fl_lossy.progressive,w_800,c_fill,q_85/Mobile/City/szhx3ytpgfnhpbmsngk0.jpg",
+      "answers": [
+        {
+          "isRight": true,
+          "id": 1,
+          "text": "Новый Амстердам"
+        },
+        {
+          "isRight": false,
+          "id": 2,
+          "text": "Большое яблоко"
+        },
+        {
+          "isRight": false,
+          "text": "Имперский штат",
+          "id": 3
+        },
+        {
+          "isRight": false,
+          "id": 4,
+          "text": "Готэм"
+        }
+      ],
+      "id": 6,
+      "questionText": "Каково было первоначальное название Нью-Йорка?"
+    },
+    {
+      "imageUrl": "https://static.wikia.nocookie.net/middleages/images/4/49/%D0%A1%D1%82%D0%BE%D0%BB%D0%B5%D1%82%D0%BD%D1%8F%D1%8F_%D0%B2%D0%BE%D0%B9%D0%BD%D0%B0.png/revision/latest?cb=20210516173534&path-prefix=ru",
+      "answers": [
+        {
+          "isRight": true,
+          "id": 1,
+          "text": "116 лет"
+        },
+        {
+          "isRight": false,
+          "id": 2,
+          "text": "100 лет"
+        },
+        {
+          "isRight": false,
+          "text": "50 лет",
+          "id": 3
+        },
+        {
+          "isRight": false,
+          "id": 4,
+          "text": "101 год"
+        }
+      ],
+      "id": 7,
+      "questionText": "Как долго длилась Столетняя война?"
+    },
+    {
+      "imageUrl": "https://www.vash-otdyh.by/images/Blog/Italy/Gold_of_Vatican/%D0%92%D0%B0%D1%82%D0%B8%D0%BA%D0%B0%D0%BD_-_%D0%B4%D0%BE%D0%BC_%D0%9F%D0%B0%D0%BF%D1%8B_%D0%A0%D0%B8%D0%BC%D1%81%D0%BA%D0%BE%D0%B3%D0%BE.jpg",
+      "answers": [
+        {
+          "isRight": false,
+          "id": 1,
+          "text": "Мальта"
+        },
+        {
+          "isRight": false,
+          "id": 2,
+          "text": "Мальдивы"
+        },
+        {
+          "isRight": true,
+          "text": "Ватикан",
+          "id": 3
+        },
+        {
+          "isRight": false,
+          "id": 4,
+          "text": "Монако"
+        }
+      ],
+      "id": 8,
+      "questionText": "Какая страна является самой маленькой в мире?"
+    },
+    {
+      "imageUrl": "https://www.womanhit.ru/media/CACHE/images/oldupload/womanhit/article/0b/62/79/DETAIL_PICTURE_659958_92306373/21e08493f188ebfdcb8da575d7109c20.jpg",
+      "answers": [
+        {
+          "isRight": true,
+          "id": 1,
+          "text": "Макдональдс"
+        },
+        {
+          "isRight": false,
+          "id": 2,
+          "text": "Бургер Кинг"
+        },
+        {
+          "isRight": false,
+          "text": "KFC",
+          "id": 3
+        },
+        {
+          "isRight": false,
+          "id": 4,
+          "text": "Маленькие Цезари"
+        }
+      ],
+      "id": 9,
+      "questionText": "Символом какого ресторана является клоун?"
+    },
+    {
+      "imageUrl": "https://www.belta.by/images/storage/news/with_archive/2018/000026_1539170855_321063_big.jpg",
+      "answers": [
+        {
+          "isRight": false,
+          "id": 1,
+          "text": "Торнадо"
+        },
+        {
+          "isRight": true,
+          "id": 2,
+          "text": "Землетрясения"
+        },
+        {
+          "isRight": false,
+          "text": "Наводнения",
+          "id": 3
+        },
+        {
+          "isRight": false,
+          "id": 4,
+          "text": "Ураган"
+        }
+      ],
+      "id": 10,
+      "questionText": "Какое стихийное бедствие измеряется по шкале Рихтера?"
+    }
+  ]
+}

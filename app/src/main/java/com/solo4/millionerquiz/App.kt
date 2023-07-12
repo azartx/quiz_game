@@ -9,6 +9,7 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
 class App : Application() {
+
     override fun onCreate() {
         super.onCreate()
         app = this
@@ -20,5 +21,7 @@ class App : Application() {
 
     companion object {
         lateinit var app: App
+
+        const val APP_PREFS = "app_prefs"
     }
 }

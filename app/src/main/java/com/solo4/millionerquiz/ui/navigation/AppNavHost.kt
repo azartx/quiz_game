@@ -6,6 +6,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.solo4.millionerquiz.debug.AddLevelScreen
 import com.solo4.millionerquiz.ui.screens.auth.AuthScreen
 import com.solo4.millionerquiz.ui.screens.game.GameScreen
 import com.solo4.millionerquiz.ui.screens.menu.MenuScreen
@@ -22,6 +23,7 @@ fun AppNavHost(
     ) {
         composable(Routes.AuthScreenRoute.name) { AuthScreen(navHostController = navController) }
         composable(Routes.MenuScreenRoute.name) { MenuScreen(navHostController = navController) }
+        composable(Routes.DevScreenRoute.name) { AddLevelScreen() }
         composable(
             route = Routes.PickLevelRoute.route,
             arguments = Routes.PickLevelRoute.args

@@ -1,19 +1,29 @@
 package com.solo4.millionerquiz.ui.screens.auth
 
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.solo4.millionerquiz.data.auth.AuthManager
+import com.solo4.millionerquiz.data.settings.language.LanguageManager
+import com.solo4.millionerquiz.model.database.PreferredLevelLang
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-class AuthViewModel(private val authManager: AuthManager) : ViewModel() {
+class AuthViewModel(private val authManager: AuthManager, private val langManager: LanguageManager) : ViewModel() {
 
     val authState = authManager.authState.asStateFlow()
 
+    val validationState = MutableSharedFlow<String>()
+
+    var pickedLanguage = mutableStateOf(langManager.levelsLanguage)
+
     fun signInAsAnon() {
         viewModelScope.launch(Dispatchers.Default) {
-            val isSuccess = authManager.signInAnonymously()
+            if (!authManager.signInAnonymously()) {
+                validationState.emit("Failed to authorize as anonymous.")
+            }
         }
     }
 
@@ -22,17 +32,17 @@ class AuthViewModel(private val authManager: AuthManager) : ViewModel() {
             val isValid = validateCredentials(email, password)
 
             if (!isValid) {
-                // todo error
+                validationState.emit("Invalid email or password")
                 return@launch
             }
 
             val signInResult = authManager.signInByEmail(email, password)
 
             if (!signInResult) {
-                if (authManager.isUserAnonymous()) {
-                    authManager.createUserByEmailFromAnon(email, password)
-                } else {
-                    authManager.createUserByEmail(email, password)
+                val createUserResult = authManager.createUserByEmail(email, password)
+
+                if (!createUserResult) {
+                    validationState.emit("Failed to authorize by email.")
                 }
             }
         }
@@ -42,9 +52,8 @@ class AuthViewModel(private val authManager: AuthManager) : ViewModel() {
         return true // todo
     }
 
-    fun logOut() {
-        viewModelScope.launch {
-            authManager.logOut()
-        }
+    fun changePickedLanguage(newLanguage: PreferredLevelLang) {
+        langManager.levelsLanguage = newLanguage
+        pickedLanguage.value = newLanguage
     }
 }

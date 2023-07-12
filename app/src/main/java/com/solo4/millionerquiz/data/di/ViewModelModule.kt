@@ -12,7 +12,7 @@ import org.koin.dsl.module
 
 val viewModelModule = module {
     viewModel { GameViewModel(get(), get()) }
-    viewModel { AuthViewModel(get()) }
+    viewModel { AuthViewModel(get(), get()) }
     viewModel { MainActivityViewModel(get()) }
     viewModel { PickLevelViewModel(get(), get()) }
     viewModel { AddLevelViewModel() }

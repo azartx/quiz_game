@@ -1,0 +1,274 @@
+{
+  "questions": [
+    {
+      "imageUrl": "https://cdnn21.img.ria.ru/images/155677/93/1556779393_0:0:2048:1152_1920x0_80_0_0_50be0c9eb9a15671aef1464725c815e8.jpg",
+      "answers": [
+        {
+          "isRight": true,
+          "id": 1,
+          "text": "Big"
+        },
+        {
+          "isRight": false,
+          "id": 2,
+          "text": "Forrest Gump"
+        },
+        {
+          "isRight": false,
+          "text": "Apollo 13",
+          "id": 3
+        },
+        {
+          "isRight": false,
+          "id": 4,
+          "text": "Letter for you"
+        }
+      ],
+      "id": 1,
+      "questionText": "What movie did Tom Hanks get his first Oscar nomination for?"
+    },
+    {
+      "imageUrl": "https://www.natlaurel.com/wp-content/uploads/2018/08/mauglee-akela-bagheera-960x640.jpg",
+      "answers": [
+        {
+          "isRight": false,
+          "id": 1,
+          "text": "Foxes"
+        },
+        {
+          "isRight": false,
+          "id": 2,
+          "text": "Primates"
+        },
+        {
+          "isRight": true,
+          "text": "Wolves",
+          "id": 3
+        },
+        {
+          "isRight": false,
+          "id": 4,
+          "text": "The Bears"
+        }
+      ],
+      "id": 2,
+      "questionText": "What animals raised Mowgli in The Jungle Book?"
+    },
+    {
+      "imageUrl": "https://radior.lt/wp-content/uploads/2021/04/7-2.jpg",
+      "answers": [
+        {
+          "isRight": false,
+          "id": 1,
+          "text": "Mike Tyson"
+        },
+        {
+          "isRight": true,
+          "id": 2,
+          "text": "Muhammad Ali"
+        },
+        {
+          "isRight": false,
+          "text": "Floyd Mayweather",
+          "id": 3
+        },
+        {
+          "isRight": false,
+          "id": 4,
+          "text": "Oscar Dela Hoya"
+        }
+      ],
+      "id": 3,
+      "questionText": "Which boxer was known as \"The Greatest\" and \"The People's Champion\"?"
+    },
+    {
+      "imageUrl": "https://www.runlab.ru/f/upload/2022-01-10_16.02.17.jpg",
+      "answers": [
+        {
+          "isRight": false,
+          "id": 1,
+          "text": "Italy"
+        },
+        {
+          "isRight": false,
+          "id": 2,
+          "text": "Japan"
+        },
+        {
+          "isRight": true,
+          "text": "Greece",
+          "id": 3
+        },
+        {
+          "isRight": false,
+          "id": 4,
+          "text": "France"
+        }
+      ],
+      "id": 4,
+      "questionText": "Which country hosted the first Olympic Games?"
+    },
+    {
+      "imageUrl": "https://readrate.com/img/pictures/basic/254/254890/2548907/w816-8f7e146d.jpg",
+      "answers": [
+        {
+          "isRight": false,
+          "id": 1,
+          "text": "Exploding Click"
+        },
+        {
+          "isRight": false,
+          "id": 2,
+          "text": "Racing on winged horses"
+        },
+        {
+          "isRight": false,
+          "text": "QuadPod",
+          "id": 3
+        },
+        {
+          "isRight": true,
+          "id": 4,
+          "text": "Quidditch"
+        }
+      ],
+      "id": 5,
+      "questionText": "What sport is played on broomsticks in Harry Potter?"
+    },
+    {
+      "imageUrl": "https://res.klook.com/image/upload/fl_lossy.progressive,w_800,c_fill,q_85/Mobile/City/szhx3ytpgfnhpbmsngk0.jpg",
+      "answers": [
+        {
+          "isRight": true,
+          "id": 1,
+          "text": "New Amsterdam"
+        },
+        {
+          "isRight": false,
+          "id": 2,
+          "text": "Big apple"
+        },
+        {
+          "isRight": false,
+          "text": "Imperial state",
+          "id": 3
+        },
+        {
+          "isRight": false,
+          "id": 4,
+          "text": "Gotham"
+        }
+      ],
+      "id": 6,
+      "questionText": "What was the original name of New York?"
+    },
+    {
+      "imageUrl": "https://static.wikia.nocookie.net/middleages/images/4/49/%D0%A1%D1%82%D0%BE%D0%BB%D0%B5%D1%82%D0%BD%D1%8F%D1%8F_%D0%B2%D0%BE%D0%B9%D0%BD%D0%B0.png/revision/latest?cb=20210516173534&path-prefix=ru",
+      "answers": [
+        {
+          "isRight": true,
+          "id": 1,
+          "text": "116 years"
+        },
+        {
+          "isRight": false,
+          "id": 2,
+          "text": "100 years"
+        },
+        {
+          "isRight": false,
+          "text": "50 years",
+          "id": 3
+        },
+        {
+          "isRight": false,
+          "id": 4,
+          "text": "101 year"
+        }
+      ],
+      "id": 7,
+      "questionText": "How long did the Hundred Years War last?"
+    },
+    {
+      "imageUrl": "https://www.vash-otdyh.by/images/Blog/Italy/Gold_of_Vatican/%D0%92%D0%B0%D1%82%D0%B8%D0%BA%D0%B0%D0%BD_-_%D0%B4%D0%BE%D0%BC_%D0%9F%D0%B0%D0%BF%D1%8B_%D0%A0%D0%B8%D0%BC%D1%81%D0%BA%D0%BE%D0%B3%D0%BE.jpg",
+      "answers": [
+        {
+          "isRight": false,
+          "id": 1,
+          "text": "Malta"
+        },
+        {
+          "isRight": false,
+          "id": 2,
+          "text": "Maldives"
+        },
+        {
+          "isRight": true,
+          "text": "Vatican",
+          "id": 3
+        },
+        {
+          "isRight": false,
+          "id": 4,
+          "text": "Monaco"
+        }
+      ],
+      "id": 8,
+      "questionText": "Which country is the smallest in the world?"
+    },
+    {
+      "imageUrl": "https://www.womanhit.ru/media/CACHE/images/oldupload/womanhit/article/0b/62/79/DETAIL_PICTURE_659958_92306373/21e08493f188ebfdcb8da575d7109c20.jpg",
+      "answers": [
+        {
+          "isRight": true,
+          "id": 1,
+          "text": "McDonald's"
+        },
+        {
+          "isRight": false,
+          "id": 2,
+          "text": "Burger King"
+        },
+        {
+          "isRight": false,
+          "text": "KFC",
+          "id": 3
+        },
+        {
+          "isRight": false,
+          "id": 4,
+          "text": "Little Caesars"
+        }
+      ],
+      "id": 9,
+      "questionText": "What restaurant's symbol is the clown?"
+    },
+    {
+      "imageUrl": "https://www.belta.by/images/storage/news/with_archive/2018/000026_1539170855_321063_big.jpg",
+      "answers": [
+        {
+          "isRight": false,
+          "id": 1,
+          "text": "Tornado"
+        },
+        {
+          "isRight": true,
+          "id": 2,
+          "text": "Earthquakes"
+        },
+        {
+          "isRight": false,
+          "text": "Floods",
+          "id": 3
+        },
+        {
+          "isRight": false,
+          "id": 4,
+          "text": "Hurricane"
+        }
+      ],
+      "id": 10,
+      "questionText": "What natural disaster is measured on the Richter scale?"
+    }
+  ]
+}

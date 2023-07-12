@@ -9,6 +9,7 @@ sealed class Routes {
     open val route: String = ""
     object AuthScreenRoute : Routes()
     object MenuScreenRoute : Routes()
+    object DevScreenRoute : Routes()
     object PickLevelRoute : Routes(), Argumentative {
         override val route: String = "$name/{$ARG_CURRENT_LEVEL}"
         override val args: List<NamedNavArgument> = listOf(
