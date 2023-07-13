@@ -9,12 +9,12 @@ import com.solo4.millionerquiz.App
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
-class Storage {
+class Storage(private  val mediaManager: MediaManager) {
     private val firebaseStorage = Firebase.storage
 
     suspend fun uploadPhoto(uri: Uri, userMark: String = SystemClock.elapsedRealtime().toString()) =
         suspendCoroutine<Uri?> { cont ->
-            val imageBytes = MediaManager().prepareMultipartData(App.app, uri)
+            val imageBytes = mediaManager.prepareMultipartData(App.app, uri)
             firebaseStorage.reference
                 .child("$REF_USER_PHOTOS/user_image_$userMark.jpg")
                 .putBytes(imageBytes)

@@ -1,13 +1,44 @@
 package com.solo4.millionerquiz.data
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.media.AudioAttributes
+import android.media.SoundPool
 import android.net.Uri
+import androidx.core.content.edit
+import com.solo4.millionerquiz.App
+import com.solo4.millionerquiz.R
+import org.koin.java.KoinJavaComponent
 import java.io.ByteArrayOutputStream
 import java.io.File
 
-class MediaManager {
+class MediaManager(private val sharedPreferences: SharedPreferences) {
+
+    var isMusicEnabled: Boolean
+        get() = sharedPreferences.getBoolean(PREFS_IS_MUSIC_ENABLED, true)
+        set(value) {
+            _isMusicEnabled = value
+            sharedPreferences.edit { putBoolean(PREFS_IS_MUSIC_ENABLED, value) }
+        }
+
+    private var _isMusicEnabled = isMusicEnabled
+
+    private val soundsPool = SoundPool.Builder().setAudioAttributes(
+        AudioAttributes.Builder()
+            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+            .setUsage(AudioAttributes.USAGE_GAME)
+            .build()
+    ).build()
+
+    private val poolMusicIds = mutableMapOf<String, Int>()
+
+    init {
+        poolMusicIds[POOL_MUSIC_CLICK] =
+            soundsPool.load(App.app.resources.openRawResourceFd(R.raw.click), 1)
+    }
+
     fun prepareMultipartData(
         context: Context,
         imageUri: Uri,
@@ -25,6 +56,19 @@ class MediaManager {
         return compressImage(file, maxFileSizeMb)
     }
 
+    fun playClickSound() {
+        if (_isMusicEnabled) {
+            soundsPool.play(
+                poolMusicIds[POOL_MUSIC_CLICK]!!,
+                1f,
+                1f,
+                1,
+                0,
+                1f
+            )
+        }
+    }
+
     private fun compressImage(file: File, maxFileSizeMb: Float): ByteArray {
         val options = BitmapFactory.Options()
         options.inJustDecodeBounds = true
@@ -38,10 +82,6 @@ class MediaManager {
             val bitmap = BitmapFactory.decodeFile(file.path)
             bitmap.compress(Bitmap.CompressFormat.JPEG, quality, outputStream)
             compressedFile = File.createTempFile("user_photo", ".jpg")
-            /*val fileOutputStream = FileOutputStream(compressedFile)
-            fileOutputStream.write(outputStream.toByteArray())
-            fileOutputStream.flush()
-            fileOutputStream.close()*/
             bytes = outputStream.toByteArray()
         } while (compressedFile.length() > maxFileSizeMb * 1024 * 1024)
         return bytes
@@ -58,6 +98,16 @@ class MediaManager {
             "application/msword" -> ".doc"
             "application/vnd.openxmlformats-officedocument.wordprocessingml.document" -> ".docx"
             else -> ".unknown"
+        }
+    }
+
+    companion object {
+        const val PREFS_IS_MUSIC_ENABLED = "PREFS_IS_MUSIC_ENABLED"
+
+        const val POOL_MUSIC_CLICK = "POOL_MUSIC_CLICK"
+
+        fun playClick() {
+            KoinJavaComponent.get<MediaManager>(MediaManager::class.java).playClickSound()
         }
     }
 }

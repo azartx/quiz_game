@@ -44,6 +44,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import com.solo4.millionerquiz.R
+import com.solo4.millionerquiz.data.MediaManager
 import com.solo4.millionerquiz.model.game.Answer
 import com.solo4.millionerquiz.model.game.GameScreenState
 import com.solo4.millionerquiz.ui.components.AnswerItem
@@ -119,6 +120,7 @@ fun GameScreen(navHostController: NavHostController = rememberNavController()) {
                     isPicked = pickedAnswer?.id == answer.id,
                     isShowResult = checkResults,
                     onClick = {
+                        MediaManager.playClick()
                         if (!currentState.isAnswered) pickedAnswer = answer
                     }
                 )
@@ -129,6 +131,7 @@ fun GameScreen(navHostController: NavHostController = rememberNavController()) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .clickable(onClick = {
+                        MediaManager.playClick()
                         if (pickedAnswer == null) return@clickable // no one answer is not picked yet
                         if (viewModel.currentQuestion.value.isAnswered) {
                             pickedAnswer = null
@@ -160,7 +163,10 @@ fun GameScreen(navHostController: NavHostController = rememberNavController()) {
                 .align(Alignment.TopEnd)
                 .background(Color.White)
                 .border(BorderStroke(1.dp, Color.Black))
-                .clickable { navHostController.popBackStack() },
+                .clickable {
+                    MediaManager.playClick()
+                    navHostController.popBackStack()
+                },
             painter = painterResource(id = R.drawable.ic_arrow_bask),
             contentDescription = "Back"
         )
@@ -201,7 +207,10 @@ fun GameScreen(navHostController: NavHostController = rememberNavController()) {
                         style = MaterialTheme.typography.titleMedium
                     )
                     Spacer(modifier = Modifier.height(50.dp))
-                    Button(onClick = { navHostController.popBackStack() }) {
+                    Button(onClick = {
+                        MediaManager.playClick()
+                        navHostController.popBackStack()
+                    }) {
                         Text(text = stringResource(R.string.continue_game))
                     }
                 }

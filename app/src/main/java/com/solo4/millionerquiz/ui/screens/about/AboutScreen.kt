@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.solo4.millionerquiz.BuildConfig
 import com.solo4.millionerquiz.R
+import com.solo4.millionerquiz.data.MediaManager
 import com.solo4.millionerquiz.ui.theme.contentPadding
 
 @Composable
@@ -48,6 +49,7 @@ fun AboutScreen(navHostController: NavHostController) {
             ) {
                 Image(
                     modifier = Modifier.clickable {
+                        MediaManager.playClick()
                         navHostController.popBackStack()
                     },
                     painter = painterResource(id = R.drawable.ic_arrow_bask),

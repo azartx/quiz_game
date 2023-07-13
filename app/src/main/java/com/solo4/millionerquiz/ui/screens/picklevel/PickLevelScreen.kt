@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.solo4.millionerquiz.R
+import com.solo4.millionerquiz.data.MediaManager
 import com.solo4.millionerquiz.ui.components.LevelItem
 import com.solo4.millionerquiz.ui.navigation.Routes
 import com.solo4.millionerquiz.ui.theme.QuizGameTheme
@@ -57,6 +58,7 @@ fun PickLevelScreen(navHostController: NavHostController = rememberNavController
                         text = (level + 1).toString(),
                         isClickEnabled = viewModel.isLevelClickable(level),
                         onClick = { levelStr ->
+                            MediaManager.playClick()
                             navHostController.navigate(Routes.GameRoute.nameWithArgs(levelStr))
                         }
                     )
@@ -66,7 +68,10 @@ fun PickLevelScreen(navHostController: NavHostController = rememberNavController
                 modifier = Modifier
                     .padding(20.dp)
                     .align(Alignment.TopEnd)
-                    .clickable { navHostController.popBackStack() },
+                    .clickable {
+                        MediaManager.playClick()
+                        navHostController.popBackStack()
+                    },
                 painter = painterResource(id = R.drawable.ic_arrow_bask),
                 contentDescription = "Back"
             )

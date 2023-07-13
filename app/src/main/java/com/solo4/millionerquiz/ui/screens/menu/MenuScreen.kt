@@ -31,11 +31,13 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import com.solo4.millionerquiz.R
+import com.solo4.millionerquiz.data.MediaManager
 import com.solo4.millionerquiz.model.auth.User
 import com.solo4.millionerquiz.ui.navigation.Routes
 import com.solo4.millionerquiz.ui.theme.QuizGameTheme
 import com.solo4.millionerquiz.ui.theme.contentPadding
 import org.koin.androidx.compose.navigation.koinNavViewModel
+import org.koin.java.KoinJavaComponent.get
 
 @Composable
 fun MenuScreen(navHostController: NavHostController = rememberNavController()) {
@@ -72,6 +74,7 @@ fun MenuScreen(navHostController: NavHostController = rememberNavController()) {
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(10.dp),
                 onClick = {
+                    MediaManager.playClick()
                     navHostController.navigate(
                         Routes.PickLevelRoute.nameWithArgs(User.currentLevel.toString())
                     )
@@ -86,7 +89,10 @@ fun MenuScreen(navHostController: NavHostController = rememberNavController()) {
                         .weight(1f)
                         .height(100.dp),
                     shape = RoundedCornerShape(20.dp),
-                    onClick = { navHostController.navigate(Routes.ProfileScreenRoute.name) }
+                    onClick = {
+                        MediaManager.playClick()
+                        navHostController.navigate(Routes.ProfileScreenRoute.name)
+                    }
                 ) {
                     Text(text = stringResource(R.string.profile), color = Color.Black)
                 }
@@ -96,7 +102,10 @@ fun MenuScreen(navHostController: NavHostController = rememberNavController()) {
                         .weight(1f)
                         .height(100.dp),
                     shape = RoundedCornerShape(20.dp),
-                    onClick = { navHostController.navigate(Routes.ScoreScreenRoute.name) }
+                    onClick = {
+                        MediaManager.playClick()
+                        navHostController.navigate(Routes.ScoreScreenRoute.name)
+                    }
                 ) {
                     Text(text = stringResource(R.string.score), color = Color.Black)
                 }
@@ -108,7 +117,10 @@ fun MenuScreen(navHostController: NavHostController = rememberNavController()) {
                         .weight(1f)
                         .height(100.dp),
                     shape = RoundedCornerShape(20.dp),
-                    onClick = { navHostController.navigate(Routes.SettingsScreenRoute.name) }
+                    onClick = {
+                        MediaManager.playClick()
+                        navHostController.navigate(Routes.SettingsScreenRoute.name)
+                    }
                 ) {
                     Text(text = stringResource(R.string.settings), color = Color.Black)
                 }
@@ -118,7 +130,10 @@ fun MenuScreen(navHostController: NavHostController = rememberNavController()) {
                         .weight(1f)
                         .height(100.dp),
                     shape = RoundedCornerShape(20.dp),
-                    onClick = { navHostController.navigate(Routes.AboutScreenRoute.name) }
+                    onClick = {
+                        MediaManager.playClick()
+                        navHostController.navigate(Routes.AboutScreenRoute.name)
+                    }
                 ) {
                     Text(text = stringResource(R.string.about), color = Color.Black)
                 }

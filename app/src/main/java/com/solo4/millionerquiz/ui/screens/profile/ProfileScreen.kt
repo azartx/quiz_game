@@ -46,6 +46,7 @@ import androidx.navigation.NavOptions
 import coil.compose.AsyncImage
 import com.solo4.millionerquiz.App
 import com.solo4.millionerquiz.R
+import com.solo4.millionerquiz.data.MediaManager
 import com.solo4.millionerquiz.ui.navigation.Routes
 import com.solo4.millionerquiz.ui.theme.contentPadding
 import kotlinx.coroutines.CoroutineScope
@@ -142,6 +143,7 @@ fun ProfileScreen(navHostController: NavHostController) {
                     .clip(RoundedCornerShape(360.dp))
                     .background(Color.LightGray, RoundedCornerShape(360.dp))
                     .clickable {
+                        MediaManager.playClick()
                         val intent = Intent()
                             .setType("image/*")
                             .setAction(Intent.ACTION_GET_CONTENT)
@@ -165,7 +167,10 @@ fun ProfileScreen(navHostController: NavHostController) {
                 modifier = Modifier
                     .padding(horizontal = 30.dp)
                     .fillMaxWidth(),
-                onClick = { viewModel.setNewUsername(viewModel.usernameTextField.value) },
+                onClick = {
+                    MediaManager.playClick()
+                    viewModel.setNewUsername(viewModel.usernameTextField.value)
+                },
                 shape = RoundedCornerShape(3.dp)
             ) {
                 Text(text = stringResource(R.string.submit_new_name))
@@ -190,9 +195,14 @@ fun ProfileScreen(navHostController: NavHostController) {
                 Button(modifier = Modifier
                     .padding(horizontal = 30.dp)
                     .fillMaxWidth()
-                    .fillMaxWidth(), shape = RoundedCornerShape(3.dp), onClick = {
-                    viewModel.continueWithEmail(emailFieldText.trim(), passwordFieldText.trim())
-                }) {
+                    .fillMaxWidth(),
+                    shape = RoundedCornerShape(3.dp),
+                    onClick = {
+                        MediaManager.playClick()
+                        viewModel.continueWithEmail(
+                            emailFieldText.trim(), passwordFieldText.trim()
+                        )
+                    }) {
                     Text(text = stringResource(R.string.sign_in_with_email))
                 }
             } else {
@@ -200,7 +210,10 @@ fun ProfileScreen(navHostController: NavHostController) {
                     modifier = Modifier
                         .padding(horizontal = 30.dp)
                         .fillMaxWidth(),
-                    onClick = { viewModel.loginAsAnon() },
+                    onClick = {
+                        MediaManager.playClick()
+                        viewModel.loginAsAnon()
+                    },
                     shape = RoundedCornerShape(3.dp)
                 ) {
                     Text(text = stringResource(R.string.continue_as_anonymous))
@@ -210,9 +223,12 @@ fun ProfileScreen(navHostController: NavHostController) {
             Button(
                 modifier = Modifier
                     .padding(horizontal = 30.dp)
-                    .fillMaxWidth(), onClick = {
+                    .fillMaxWidth(),
+                onClick = {
+                    MediaManager.playClick()
                     viewModel.logOut()
-                }, shape = RoundedCornerShape(3.dp)
+                },
+                shape = RoundedCornerShape(3.dp)
             ) {
                 Text(text = stringResource(R.string.log_out))
             }

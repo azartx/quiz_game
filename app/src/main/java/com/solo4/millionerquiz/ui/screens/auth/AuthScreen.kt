@@ -46,6 +46,7 @@ import androidx.navigation.compose.rememberNavController
 import com.solo4.millionerquiz.App
 import com.solo4.millionerquiz.BuildConfig
 import com.solo4.millionerquiz.R
+import com.solo4.millionerquiz.data.MediaManager
 import com.solo4.millionerquiz.data.auth.AuthState
 import com.solo4.millionerquiz.model.database.PreferredLevelLang
 import com.solo4.millionerquiz.ui.navigation.Routes
@@ -116,6 +117,7 @@ fun AuthScreen(navHostController: NavHostController = rememberNavController()) {
                     modifier = Modifier
                         .size(48.dp, 38.dp)
                         .clickable {
+                            MediaManager.playClick()
                             viewModel.changePickedLanguage(PreferredLevelLang.en)
                         }
                         .border(
@@ -132,6 +134,7 @@ fun AuthScreen(navHostController: NavHostController = rememberNavController()) {
                     modifier = Modifier
                         .size(48.dp, 38.dp)
                         .clickable {
+                            MediaManager.playClick()
                             viewModel.changePickedLanguage(PreferredLevelLang.ru)
                         }
                         .border(
@@ -165,20 +168,30 @@ fun AuthScreen(navHostController: NavHostController = rememberNavController()) {
             Spacer(modifier = Modifier.height(10.dp))
             Button(modifier = Modifier
                 .padding(horizontal = 30.dp)
-                .fillMaxWidth(), shape = RoundedCornerShape(10.dp), onClick = {
-                viewModel.signInByEmail(emailFieldText.trim(), passwordFieldText.trim())
-            }) {
+                .fillMaxWidth(),
+                shape = RoundedCornerShape(10.dp),
+                onClick = {
+                    MediaManager.playClick()
+                    viewModel.signInByEmail(emailFieldText.trim(), passwordFieldText.trim())
+                }
+            ) {
                 Text(text = stringResource(id = R.string.sign_in_with_email))
             }
 
             Spacer(modifier = Modifier.height(15.dp))
-            Text(text = "Or", style = TextStyle(fontSize = 20.sp, fontWeight = FontWeight.Bold))
+            Text(
+                text = stringResource(R.string.or),
+                style = TextStyle(fontSize = 20.sp, fontWeight = FontWeight.Bold)
+            )
             Spacer(modifier = Modifier.height(15.dp))
             Button(modifier = Modifier
                 .padding(horizontal = 30.dp)
                 .fillMaxWidth(),
                 shape = RoundedCornerShape(10.dp),
-                onClick = { viewModel.signInAsAnon() }) {
+                onClick = {
+                    MediaManager.playClick()
+                    viewModel.signInAsAnon()
+                }) {
                 Text(text = stringResource(id = R.string.continue_as_anonymous))
             }
             Spacer(modifier = Modifier.height(50.dp))

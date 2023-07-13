@@ -30,4 +30,5 @@
     <string name="do_you_want_to_sign_in">Do you want to sign in?</string>
     <string name="about_app_body">Quiz Application\nVersion:</string>
     <string name="about_app_title">About the app</string>
+    <string name="or">Or</string>
 </resources>
