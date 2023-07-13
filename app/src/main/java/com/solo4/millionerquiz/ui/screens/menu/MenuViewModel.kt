@@ -3,12 +3,9 @@ package com.solo4.millionerquiz.ui.screens.menu
 import androidx.lifecycle.ViewModel
 import com.solo4.millionerquiz.data.auth.AuthManager
 
-class MenuViewModel(
-    private val authManager: AuthManager
-) : ViewModel() {
+class MenuViewModel(private val authManager: AuthManager) : ViewModel() {
+    val authState = authManager.authState
     fun getUserImage(): String {
         return authManager.authState.value.user.profileImageUrl
     }
-
-    val authState = authManager.authState
 }

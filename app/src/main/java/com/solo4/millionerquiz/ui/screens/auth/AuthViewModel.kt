@@ -1,11 +1,13 @@
 package com.solo4.millionerquiz.ui.screens.auth
 
+import android.app.Application
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.solo4.millionerquiz.App
 import com.solo4.millionerquiz.R
 import com.solo4.millionerquiz.data.auth.AuthManager
+import com.solo4.millionerquiz.data.auth.AuthManager.Companion.DEF_USERNAME
 import com.solo4.millionerquiz.data.auth.AuthManager.Companion.DEF_USERNAME_ANON
 import com.solo4.millionerquiz.data.settings.language.LanguageManager
 import com.solo4.millionerquiz.model.database.PreferredLevelLang
@@ -15,9 +17,10 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class AuthViewModel(
+    application: Application,
     private val authManager: AuthManager,
     private val langManager: LanguageManager
-) : ViewModel() {
+) : AndroidViewModel(application) {
 
     val authState = authManager.authState.asStateFlow()
 
@@ -25,14 +28,16 @@ class AuthViewModel(
 
     var pickedLanguage = mutableStateOf(langManager.levelsLanguage)
 
-    var generatedUsername: String = "Unnamed User"
+    var generatedUsername: String = DEF_USERNAME
     val usernameTextField = mutableStateOf("")
 
 
     fun signInAsAnon() {
         viewModelScope.launch(Dispatchers.Default) {
             if (!authManager.signInAnonymously(usernameTextField.value.ifBlank { DEF_USERNAME_ANON } )) {
-                validationState.emit("Failed to authorize as anonymous.")
+                validationState.emit(
+                    getApplication<Application>().getString(R.string.failed_to_authorize_as_anonymous)
+                )
             }
         }
     }
@@ -42,7 +47,9 @@ class AuthViewModel(
             val isValid = validateCredentials(email, password)
 
             if (!isValid) {
-                validationState.emit("Invalid email or password")
+                validationState.emit(
+                    getApplication<Application>().getString(R.string.invalid_email_or_password)
+                )
                 return@launch
             }
 
@@ -58,7 +65,9 @@ class AuthViewModel(
                     usernameTextField.value.ifBlank { generatedUsername })
 
                 if (!createUserResult) {
-                    validationState.emit("Failed to authorize by email.")
+                    validationState.emit(
+                        getApplication<Application>().getString(R.string.failed_to_authorize_by_email)
+                    )
                 }
             }
         }

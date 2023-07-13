@@ -5,7 +5,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.solo4.millionerquiz.data.auth.AuthManager
 import com.solo4.millionerquiz.data.repositories.questions.LevelsRepository
+import com.solo4.millionerquiz.data.repositories.score.ScoreRepository
 import com.solo4.millionerquiz.model.auth.User
 import com.solo4.millionerquiz.model.game.Answer
 import com.solo4.millionerquiz.model.game.GameScreenState
@@ -18,7 +20,9 @@ import kotlinx.coroutines.launch
 
 class GameViewModel(
     private val savedStateHandle: SavedStateHandle,
-    private val levelRepository: LevelsRepository
+    private val authManager: AuthManager,
+    private val levelRepository: LevelsRepository,
+    private val scoreRepository: ScoreRepository
 ) : ViewModel() {
     private val initialQuestion = Question(0, "Loading", "", listOf())
 
@@ -26,7 +30,11 @@ class GameViewModel(
 
     val screenState = mutableStateOf<GameScreenState>(GameScreenState.Loading)
 
+    var questionsCount = 0
+
     val score = MutableStateFlow(0)
+
+    var rightAnswersCount = 0
 
     val scoreForEndGameUI = mutableStateOf(0)
 
@@ -35,6 +43,7 @@ class GameViewModel(
             val currentLevel = savedStateHandle.get<String>(ARG_CURRENT_LEVEL)?.toInt() ?: 1
             val level = levelRepository.getSpecificLevel(currentLevel) // todo can cause an exceptions
             currentQuestion.value = level.questions.first()
+            questionsCount = level.questions.size
             screenState.value = GameScreenState.GameInProgress(level.questions)
         }
     }
@@ -62,6 +71,9 @@ class GameViewModel(
         User.currentLevel =+ 1
 
         viewModelScope.launch {
+            launch {
+                scoreRepository.updateUserScore(authManager.authState.value.user, score.value)
+            }
             for (number in 0..score.value step 40) {
                 scoreForEndGameUI.value = number
                 delay(150)
@@ -73,10 +85,20 @@ class GameViewModel(
         viewModelScope.launch {
             currentQuestion.value.isAnswered = true
             if (pickedAnswer == null) return@launch
-            if (pickedAnswer == currentQuestion.value.answers.first { it.isRight }) {
+            if (pickedAnswer == currentQuestion.value.answers.first { it.isRight }) { // picked answer was right
+                ++rightAnswersCount
                 score.emit(score.value + SCORE_POINTS_RIGHT_ANSWER)
             }
         }
+    }
+
+    fun getNumberOfEndGameStars(): Int {
+        val needRightQuestionsForOneStar = questionsCount / 3
+        var stars = 0
+        stars += if (rightAnswersCount > needRightQuestionsForOneStar) 1 else 0
+        stars += if (rightAnswersCount > (needRightQuestionsForOneStar * 2)) 1 else 0
+        stars += if (rightAnswersCount >= (questionsCount - 1)) 1 else 0
+        return stars
     }
 
     private companion object {

@@ -6,7 +6,7 @@ sealed class AuthState {
     abstract val user: User
     data class None(override val user: User = User.unknown) : AuthState()
 
-    data class Anon(override val user: User = User.unknown) : AuthState()
+    data class Anon(override val user: User) : AuthState()
     data class ByEmail(override val user: User) : AuthState()
 
     fun updateUserPhoto(newPhotoUrl: String): AuthState {

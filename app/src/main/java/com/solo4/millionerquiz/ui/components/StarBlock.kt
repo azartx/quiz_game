@@ -3,6 +3,7 @@ package com.solo4.millionerquiz.ui.components
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
@@ -27,7 +28,7 @@ fun StarBlock(filledStarsCount: Int, modifier: Modifier = Modifier) {
         targetValue = animationTargetState.value,
         animationSpec = tween(durationMillis = 3000)
     )
-    Row(modifier = modifier) {
+    Row(modifier = modifier, horizontalArrangement = Arrangement.Center) {
         for (item in 1.. filledStarsCount) {
             Star(animatedFloatState.value)
         }

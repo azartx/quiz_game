@@ -5,8 +5,10 @@ import androidx.core.content.edit
 import com.google.firebase.auth.FirebaseUser
 import com.solo4.millionerquiz.data.auth.AuthManager.Companion.DEF_USERNAME
 import org.koin.java.KoinJavaComponent.get
+import java.util.UUID
 
 data class User(
+    val id: String,
     val name: String,
     val profileImageUrl: String,
     val isAnonymous: Boolean,
@@ -17,14 +19,16 @@ data class User(
             "https://cdn4.iconfinder.com/data/icons/political-elections/50/48-1024.png"
 
         val unknown: User = User(
-            name = "Anonymous User",
+            id = UUID.randomUUID().toString(),
+            name = DEF_USERNAME,
             profileImageUrl = IMAGE_PLACEHOLDER,
             isAnonymous = true
         )
 
-        fun map(firebaseUser: FirebaseUser?): User {
+        fun map(firebaseUser: FirebaseUser?, backingUsername: String = DEF_USERNAME): User {
             return User(
-                name = firebaseUser?.displayName ?: DEF_USERNAME,
+                id = firebaseUser?.uid ?: UUID.randomUUID().toString(),
+                name = firebaseUser?.displayName ?: backingUsername,
                 profileImageUrl = firebaseUser?.photoUrl?.toString() ?: IMAGE_PLACEHOLDER,
                 isAnonymous = firebaseUser?.isAnonymous ?: true,
                 email = firebaseUser?.email

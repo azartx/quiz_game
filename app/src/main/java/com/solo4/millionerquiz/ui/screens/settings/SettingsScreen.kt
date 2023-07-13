@@ -26,6 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -37,9 +38,7 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun SettingsScreen(navHostController: NavHostController) {
-
     val viewModel: SettingsViewModel = koinViewModel()
-
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -53,13 +52,26 @@ fun SettingsScreen(navHostController: NavHostController) {
                 .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Spacer(modifier = Modifier.height(50.dp))
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(50.dp),
+                horizontalArrangement = Arrangement.End
+            ) {
+                Image(
+                    modifier = Modifier.clickable {
+                        navHostController.popBackStack()
+                    },
+                    painter = painterResource(id = R.drawable.ic_arrow_bask),
+                    contentDescription = "Back"
+                )
+            }
             Text(
                 text = "Settings",
                 style = MaterialTheme.typography.titleLarge
             )
             Spacer(modifier = Modifier.height(70.dp))
-            Text(text = "Change Questions Language: ", style = TextStyle(fontSize = 20.sp))
+            Text(text = stringResource(R.string.change_questions_language), style = TextStyle(fontSize = 20.sp))
             Spacer(modifier = Modifier.height(18.dp))
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
                 Image(

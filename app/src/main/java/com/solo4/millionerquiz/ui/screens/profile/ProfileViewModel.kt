@@ -1,19 +1,23 @@
 package com.solo4.millionerquiz.ui.screens.profile
 
+import android.app.Application
 import android.net.Uri
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import com.solo4.millionerquiz.R
 import com.solo4.millionerquiz.data.auth.AuthManager
+import com.solo4.millionerquiz.data.auth.AuthManager.Companion.DEF_USERNAME
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
 
-class ProfileViewModel(private val authManager: AuthManager) : ViewModel() {
+class ProfileViewModel(application: Application, private val authManager: AuthManager) :
+    AndroidViewModel(application) {
 
     val authState = authManager.authState
 
-    var generatedUsername: String = "Unnamed User"
+    var generatedUsername: String = DEF_USERNAME
     val usernameTextField = mutableStateOf(authState.value.user.name)
 
     val logOutEvent = MutableSharedFlow<Unit>()
@@ -29,7 +33,9 @@ class ProfileViewModel(private val authManager: AuthManager) : ViewModel() {
             val isValid = validateCredentials(email, password)
 
             if (!isValid) {
-                validationState.emit("Invalid email or password")
+                validationState.emit(
+                    getApplication<Application>().getString(R.string.invalid_email_or_password)
+                )
                 return@launch
             }
 
@@ -45,7 +51,9 @@ class ProfileViewModel(private val authManager: AuthManager) : ViewModel() {
                     usernameTextField.value.ifBlank { generatedUsername })
 
                 if (!createUserResult) {
-                    validationState.emit("Failed to authorize by email.")
+                    validationState.emit(
+                        getApplication<Application>().getString(R.string.failed_to_authorize_by_email)
+                    )
                 }
             }
         }
@@ -57,8 +65,10 @@ class ProfileViewModel(private val authManager: AuthManager) : ViewModel() {
 
     fun loginAsAnon() {
         viewModelScope.launch {
-            if (!authManager.signInAnonymously(usernameTextField.value.ifBlank { AuthManager.DEF_USERNAME_ANON } )) {
-                validationState.emit("Failed to authorize as anonymous.")
+            if (!authManager.signInAnonymously(usernameTextField.value.ifBlank { AuthManager.DEF_USERNAME_ANON })) {
+                validationState.emit(
+                    getApplication<Application>().getString(R.string.failed_to_authorize_as_anonymous)
+                )
             }
         }
     }

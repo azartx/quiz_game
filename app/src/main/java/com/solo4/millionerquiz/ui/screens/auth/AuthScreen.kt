@@ -35,6 +35,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -58,7 +59,6 @@ import org.koin.androidx.compose.koinViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AuthScreen(navHostController: NavHostController = rememberNavController()) {
-
     val viewModel: AuthViewModel = koinViewModel()
 
     var emailFieldText by remember { mutableStateOf("") }
@@ -99,11 +99,15 @@ fun AuthScreen(navHostController: NavHostController = rememberNavController()) {
 
             Spacer(modifier = Modifier.height(50.dp))
             Text(
-                text = "Welcome to Quiz App!",
+                text = stringResource(R.string.welcome).plus(" ")
+                    .plus(stringResource(id = R.string.app_name)).plus("!"),
                 style = MaterialTheme.typography.titleLarge
             )
             Spacer(modifier = Modifier.height(70.dp))
-            Text(text = "Pick Questions Language: ", style = TextStyle(fontSize = 20.sp))
+            Text(
+                text = stringResource(R.string.pick_questions_language),
+                style = TextStyle(fontSize = 20.sp)
+            )
             Spacer(modifier = Modifier.height(18.dp))
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
                 Image(
@@ -141,7 +145,7 @@ fun AuthScreen(navHostController: NavHostController = rememberNavController()) {
 
             Spacer(modifier = Modifier.height(30.dp))
             Text(
-                text = "Do you want to sign in?",
+                text = stringResource(R.string.do_you_want_to_sign_in),
                 style = TextStyle(fontSize = 20.sp)
             )
             Spacer(modifier = Modifier.height(20.dp))
@@ -149,22 +153,22 @@ fun AuthScreen(navHostController: NavHostController = rememberNavController()) {
             TextField(
                 value = viewModel.usernameTextField.value,
                 onValueChange = { viewModel.usernameTextField.value = it },
-                placeholder = { Text(text = "Username") })
+                placeholder = { Text(text = stringResource(id = R.string.username)) })
             TextField(
                 value = emailFieldText,
                 onValueChange = { emailFieldText = it },
-                placeholder = { Text(text = "Email") })
+                placeholder = { Text(text = stringResource(id = R.string.email)) })
             TextField(
                 value = passwordFieldText,
                 onValueChange = { passwordFieldText = it },
-                placeholder = { Text(text = "Password") })
+                placeholder = { Text(text = stringResource(id = R.string.password)) })
             Spacer(modifier = Modifier.height(10.dp))
             Button(modifier = Modifier
                 .padding(horizontal = 30.dp)
                 .fillMaxWidth(), shape = RoundedCornerShape(10.dp), onClick = {
                 viewModel.signInByEmail(emailFieldText.trim(), passwordFieldText.trim())
             }) {
-                Text(text = "Sign in with email")
+                Text(text = stringResource(id = R.string.sign_in_with_email))
             }
 
             Spacer(modifier = Modifier.height(15.dp))
@@ -175,7 +179,7 @@ fun AuthScreen(navHostController: NavHostController = rememberNavController()) {
                 .fillMaxWidth(),
                 shape = RoundedCornerShape(10.dp),
                 onClick = { viewModel.signInAsAnon() }) {
-                Text(text = "Continue as Anonymous")
+                Text(text = stringResource(id = R.string.continue_as_anonymous))
             }
             Spacer(modifier = Modifier.height(50.dp))
         }

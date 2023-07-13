@@ -31,6 +31,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.sp
+import com.solo4.millionerquiz.ui.theme.GreenRightAnswer
+import com.solo4.millionerquiz.ui.theme.GreenPickAnswer
+import com.solo4.millionerquiz.ui.theme.RedBadAnswer
+import com.solo4.millionerquiz.ui.theme.YellowRightAnswer
 
 @Composable
 fun AnswerItem(
@@ -40,11 +44,16 @@ fun AnswerItem(
     isShowResult: Boolean = false,
     onClick: (Answer) -> Unit
 ) {
-    val bgColor by animateColorAsState(
+    /*val bgColor by animateColorAsState(
         targetValue = if (isShowResult)
-            if (answer.isRight) Color.Green else
-                if (isPicked) Color.Red else MaterialTheme.colorScheme.secondary
+            if (answer.isRight) GreenRightAnswer else
+                if (isPicked) RedBadAnswer else MaterialTheme.colorScheme.secondary
         else MaterialTheme.colorScheme.secondary,
+        animationSpec = tween(durationMillis = 300)
+    )*/
+
+    val bgColor by animateColorAsState(
+        targetValue = if (isShowResult) if (answer.isRight && isPicked) GreenRightAnswer else if (!answer.isRight && isPicked) RedBadAnswer else if (answer.isRight && !isPicked) YellowRightAnswer else MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.secondary,
         animationSpec = tween(durationMillis = 300)
     )
 
@@ -76,7 +85,7 @@ fun AnswerItem(
                         .alpha(alpha.toFloat())
                         .width(width)
                         .onSizeChanged { alpha = if (it.width <= 50) 0 else 1 },
-                    onDraw = { drawRect(Color.Green) }
+                    onDraw = { drawRect(GreenPickAnswer) }
                 )
             }
 

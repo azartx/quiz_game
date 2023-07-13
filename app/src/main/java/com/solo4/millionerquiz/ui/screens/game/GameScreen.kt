@@ -1,17 +1,20 @@
 package com.solo4.millionerquiz.ui.screens.game
 
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -27,8 +30,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -80,18 +86,18 @@ fun GameScreen(navHostController: NavHostController = rememberNavController()) {
                     modifier = Modifier
                         .fillMaxWidth()
                         .align(Alignment.CenterHorizontally)
-                        .defaultMinSize(minHeight = 200.dp)
-                        .fillMaxWidth(200f)
-                        .background(Color.LightGray, RoundedCornerShape(10.dp)),
+                        .size(200.dp)
+                        .clip(RoundedCornerShape(10.dp)),
                     model = currentState.imageUrl,
+                    contentScale = ContentScale.Crop,
                     placeholder = painterResource(id = R.drawable.question_placeholder),
                     error = painterResource(id = R.drawable.question_placeholder),
-                    contentDescription = "Question image"
+                    contentDescription = stringResource(R.string.question_image)
                 )
             }
             Spacer(modifier = Modifier.height(10.dp))
             Text(
-                text = "Question ${currentState.id}",
+                text = stringResource(R.string.question).plus(" ${currentState.id}"),
                 color = MaterialTheme.colorScheme.primary,
                 style = MaterialTheme.typography.titleSmall
             )
@@ -103,7 +109,6 @@ fun GameScreen(navHostController: NavHostController = rememberNavController()) {
                 style = MaterialTheme.typography.bodyLarge
             )
             Spacer(modifier = Modifier.height(40.dp))
-
 
             currentState.answers.forEach { answer ->
                 AnswerItem(
@@ -124,7 +129,9 @@ fun GameScreen(navHostController: NavHostController = rememberNavController()) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .clickable(onClick = {
+                        if (pickedAnswer == null) return@clickable // no one answer is not picked yet
                         if (viewModel.currentQuestion.value.isAnswered) {
+                            pickedAnswer = null
                             invalidateAnswers()
                             viewModel.nextQuestion()
                         } else {
@@ -142,10 +149,21 @@ fun GameScreen(navHostController: NavHostController = rememberNavController()) {
                         .padding(vertical = 16.dp),
                     textAlign = TextAlign.Center,
                     style = TextStyle(fontSize = 16.sp, color = Color.Black),
-                    text = if (currentState.isAnswered) "Next" else "Answer"
+                    text = if (currentState.isAnswered)
+                        stringResource(R.string.next) else stringResource(R.string.answer)
                 )
             }
         }
+        Image(
+            modifier = Modifier
+                .padding(40.dp)
+                .align(Alignment.TopEnd)
+                .background(Color.White)
+                .border(BorderStroke(1.dp, Color.Black))
+                .clickable { navHostController.popBackStack() },
+            painter = painterResource(id = R.drawable.ic_arrow_bask),
+            contentDescription = "Back"
+        )
         if (viewModel.screenState.value is GameScreenState.EndGame) {
             Box(
                 modifier = Modifier
@@ -153,23 +171,38 @@ fun GameScreen(navHostController: NavHostController = rememberNavController()) {
                     .fillMaxSize()
                     .background(Color.Gray, RoundedCornerShape(size = 20.dp))
                     .padding(2.dp)
-                    .background(Color.LightGray, RoundedCornerShape(size = 20.dp))
+                    .background(
+                        MaterialTheme.colorScheme.onSecondary,
+                        RoundedCornerShape(size = 20.dp)
+                    )
                     .padding(20.dp)
             ) {
                 Column(
                     modifier = Modifier.fillMaxSize(),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Text(text = "Level completed!", style = TextStyle(fontSize = 22.sp))
-                    Spacer(modifier = Modifier.height(30.dp))
-                    Text(text = viewModel.scoreForEndGameUI.value.toString())
-                    Spacer(modifier = Modifier.height(30.dp))
-                    StarBlock(filledStarsCount = 2, modifier = Modifier.fillMaxWidth())
+                    Text(
+                        text = stringResource(R.string.level_completed),
+                        style = MaterialTheme.typography.titleLarge
+                    )
+                    Spacer(modifier = Modifier.height(60.dp))
+                    Text(
+                        text = viewModel.scoreForEndGameUI.value.toString(),
+                        style = MaterialTheme.typography.titleLarge
+                    )
+                    Spacer(modifier = Modifier.height(48.dp))
+                    StarBlock(
+                        filledStarsCount = viewModel.getNumberOfEndGameStars(),
+                        modifier = Modifier.fillMaxWidth()
+                    )
                     Spacer(modifier = Modifier.height(100.dp))
-                    Text(text = "Wanna play next?")
-                    Spacer(modifier = Modifier.height(30.dp))
+                    Text(
+                        text = stringResource(R.string.wanna_play_next),
+                        style = MaterialTheme.typography.titleMedium
+                    )
+                    Spacer(modifier = Modifier.height(50.dp))
                     Button(onClick = { navHostController.popBackStack() }) {
-                        Text(text = "Continue")
+                        Text(text = stringResource(R.string.continue_game))
                     }
                 }
             }

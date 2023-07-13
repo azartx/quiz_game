@@ -5,10 +5,13 @@ import android.content.Intent
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -33,17 +36,16 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.NavOptions
 import coil.compose.AsyncImage
 import com.solo4.millionerquiz.App
-import com.solo4.millionerquiz.MainActivity
 import com.solo4.millionerquiz.R
-import com.solo4.millionerquiz.data.Storage
 import com.solo4.millionerquiz.ui.navigation.Routes
 import com.solo4.millionerquiz.ui.theme.contentPadding
 import kotlinx.coroutines.CoroutineScope
@@ -114,9 +116,22 @@ fun ProfileScreen(navHostController: NavHostController) {
                 .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Spacer(modifier = Modifier.height(50.dp))
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(50.dp),
+                horizontalArrangement = Arrangement.End
+            ) {
+                Image(
+                    modifier = Modifier.clickable {
+                        navHostController.popBackStack()
+                    },
+                    painter = painterResource(id = R.drawable.ic_arrow_bask),
+                    contentDescription = "Back"
+                )
+            }
             Text(
-                text = "Profile",
+                text = stringResource(id = R.string.profile),
                 style = MaterialTheme.typography.titleLarge
             )
             Spacer(modifier = Modifier.height(38.dp))
@@ -125,6 +140,7 @@ fun ProfileScreen(navHostController: NavHostController) {
                 modifier = Modifier
                     .size(200.dp)
                     .clip(RoundedCornerShape(360.dp))
+                    .background(Color.LightGray, RoundedCornerShape(360.dp))
                     .clickable {
                         val intent = Intent()
                             .setType("image/*")
@@ -134,7 +150,7 @@ fun ProfileScreen(navHostController: NavHostController) {
                     },
                 model = viewModel.getUserImage(),
                 contentScale = ContentScale.Crop,
-                contentDescription = "User profile image",
+                contentDescription = stringResource(id = R.string.user_profile_image),
                 error = painterResource(id = R.drawable.ic_user_placeholder),
                 placeholder = painterResource(id = R.drawable.ic_user_placeholder)
             )
@@ -143,15 +159,16 @@ fun ProfileScreen(navHostController: NavHostController) {
             TextField(
                 value = viewModel.usernameTextField.value,
                 onValueChange = { viewModel.usernameTextField.value = it },
-                placeholder = { Text(text = "Username") })
+                placeholder = { Text(text = stringResource(R.string.username)) })
             Spacer(modifier = Modifier.height(20.dp))
-            Button(modifier = Modifier
-                .padding(horizontal = 30.dp)
-                .fillMaxWidth(),
+            Button(
+                modifier = Modifier
+                    .padding(horizontal = 30.dp)
+                    .fillMaxWidth(),
                 onClick = { viewModel.setNewUsername(viewModel.usernameTextField.value) },
                 shape = RoundedCornerShape(3.dp)
             ) {
-                Text(text = "Submit new name")
+                Text(text = stringResource(R.string.submit_new_name))
             }
 
             Spacer(modifier = Modifier.height(20.dp))
@@ -160,42 +177,44 @@ fun ProfileScreen(navHostController: NavHostController) {
                 TextField(
                     value = viewModel.usernameTextField.value,
                     onValueChange = { viewModel.usernameTextField.value = it },
-                    placeholder = { Text(text = "Username") })
+                    placeholder = { Text(text = stringResource(id = R.string.username)) })
                 TextField(
                     value = emailFieldText,
                     onValueChange = { emailFieldText = it },
-                    placeholder = { Text(text = "Email") })
+                    placeholder = { Text(text = stringResource(R.string.email)) })
                 TextField(
                     value = passwordFieldText,
                     onValueChange = { passwordFieldText = it },
-                    placeholder = { Text(text = "Password") })
+                    placeholder = { Text(text = stringResource(R.string.password)) })
                 Spacer(modifier = Modifier.height(10.dp))
                 Button(modifier = Modifier
                     .padding(horizontal = 30.dp)
                     .fillMaxWidth()
-                    .fillMaxWidth(), shape = RoundedCornerShape(10.dp), onClick = {
+                    .fillMaxWidth(), shape = RoundedCornerShape(3.dp), onClick = {
                     viewModel.continueWithEmail(emailFieldText.trim(), passwordFieldText.trim())
                 }) {
-                    Text(text = "Sign in with email")
+                    Text(text = stringResource(R.string.sign_in_with_email))
                 }
             } else {
-                Button(modifier = Modifier
-                    .padding(horizontal = 30.dp)
-                    .fillMaxWidth(),
+                Button(
+                    modifier = Modifier
+                        .padding(horizontal = 30.dp)
+                        .fillMaxWidth(),
                     onClick = { viewModel.loginAsAnon() },
                     shape = RoundedCornerShape(3.dp)
                 ) {
-                    Text(text = "Continue as Anonymous")
+                    Text(text = stringResource(R.string.continue_as_anonymous))
                 }
             }
             Spacer(modifier = Modifier.height(20.dp))
-            Button(modifier = Modifier
-                .padding(horizontal = 30.dp)
-                .fillMaxWidth(), onClick = {
-                viewModel.logOut()
-            }, shape = RoundedCornerShape(3.dp)
+            Button(
+                modifier = Modifier
+                    .padding(horizontal = 30.dp)
+                    .fillMaxWidth(), onClick = {
+                    viewModel.logOut()
+                }, shape = RoundedCornerShape(3.dp)
             ) {
-                Text(text = "Log Out")
+                Text(text = stringResource(R.string.log_out))
             }
         }
     }

@@ -42,3 +42,8 @@ val BlueGrey50 = Color(0xFF767680)
 val BlueGrey60 = Color(0xFF90909A)
 val BlueGrey80 = Color(0xFFC6C5D0)
 val BlueGrey90 = Color(0xFFE2E1EC)
+
+val GreenPickAnswer = Color(0xFF558B2F)
+val GreenRightAnswer = Color(0xFF8BC34A)
+val YellowRightAnswer = Color(0xFFFFCA28)
+val RedBadAnswer = Color(0xFFEF5350)

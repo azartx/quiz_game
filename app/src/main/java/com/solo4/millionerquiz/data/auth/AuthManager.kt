@@ -24,7 +24,9 @@ class AuthManager(private val storage: Storage) {
         CoroutineScope(Dispatchers.Main).launch {
             if (!isAuthenticated()) return@launch
             authState.emit(
-                if (isUserAnonymous()) AuthState.Anon() else AuthState.ByEmail(User.map(firebaseAuth.currentUser))
+                if (isUserAnonymous())
+                    AuthState.Anon(User.map(firebaseAuth.currentUser, DEF_USERNAME_ANON)) else
+                        AuthState.ByEmail(User.map(firebaseAuth.currentUser))
             )
         }
     }

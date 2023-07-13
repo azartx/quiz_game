@@ -8,5 +8,5 @@ import org.koin.dsl.module
 val dataModule = module {
     single { Storage() }
     single { AuthManager(get()) }
-    single { FirestoreDB(get()) }
+    single { FirestoreDB(get(), get()) }
 }

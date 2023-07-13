@@ -1,8 +1,6 @@
 package com.solo4.millionerquiz.ui.screens.menu
 
-import android.content.Intent
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -26,6 +24,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -40,9 +39,7 @@ import org.koin.androidx.compose.navigation.koinNavViewModel
 
 @Composable
 fun MenuScreen(navHostController: NavHostController = rememberNavController()) {
-
     val viewModel: MenuViewModel = koinNavViewModel()
-
     val authState by viewModel.authState.collectAsState()
 
     Box(
@@ -60,10 +57,11 @@ fun MenuScreen(navHostController: NavHostController = rememberNavController()) {
             AsyncImage(
                 modifier = Modifier
                     .size(200.dp)
-                    .clip(RoundedCornerShape(360.dp)),
+                    .clip(RoundedCornerShape(360.dp))
+                    .background(Color.LightGray, RoundedCornerShape(360.dp)),
                 model = viewModel.getUserImage(),
                 contentScale = ContentScale.Crop,
-                contentDescription = "User profile image",
+                contentDescription = stringResource(R.string.user_profile_image),
                 error = painterResource(id = R.drawable.ic_user_placeholder),
                 placeholder = painterResource(id = R.drawable.ic_user_placeholder)
             )
@@ -79,7 +77,7 @@ fun MenuScreen(navHostController: NavHostController = rememberNavController()) {
                     )
                 }
             ) {
-                Text(text = "Играть")
+                Text(text = stringResource(R.string.play))
             }
             Spacer(modifier = Modifier.height(50.dp))
             Row(modifier = Modifier.fillMaxWidth()) {
@@ -90,7 +88,7 @@ fun MenuScreen(navHostController: NavHostController = rememberNavController()) {
                     shape = RoundedCornerShape(20.dp),
                     onClick = { navHostController.navigate(Routes.ProfileScreenRoute.name) }
                 ) {
-                    Text(text = "Profile", color = Color.Black)
+                    Text(text = stringResource(R.string.profile), color = Color.Black)
                 }
                 Spacer(modifier = Modifier.width(10.dp))
                 Button(
@@ -98,11 +96,9 @@ fun MenuScreen(navHostController: NavHostController = rememberNavController()) {
                         .weight(1f)
                         .height(100.dp),
                     shape = RoundedCornerShape(20.dp),
-                    onClick = {
-
-                    }
+                    onClick = { navHostController.navigate(Routes.ScoreScreenRoute.name) }
                 ) {
-                    Text(text = "Score", color = Color.Black)
+                    Text(text = stringResource(R.string.score), color = Color.Black)
                 }
             }
             Spacer(modifier = Modifier.height(10.dp))
@@ -114,7 +110,7 @@ fun MenuScreen(navHostController: NavHostController = rememberNavController()) {
                     shape = RoundedCornerShape(20.dp),
                     onClick = { navHostController.navigate(Routes.SettingsScreenRoute.name) }
                 ) {
-                    Text(text = "Settings", color = Color.Black)
+                    Text(text = stringResource(R.string.settings), color = Color.Black)
                 }
                 Spacer(modifier = Modifier.width(10.dp))
                 Button(
@@ -122,11 +118,9 @@ fun MenuScreen(navHostController: NavHostController = rememberNavController()) {
                         .weight(1f)
                         .height(100.dp),
                     shape = RoundedCornerShape(20.dp),
-                    onClick = {
-
-                    }
+                    onClick = { navHostController.navigate(Routes.AboutScreenRoute.name) }
                 ) {
-                    Text(text = "About", color = Color.Black)
+                    Text(text = stringResource(R.string.about), color = Color.Black)
                 }
             }
 
