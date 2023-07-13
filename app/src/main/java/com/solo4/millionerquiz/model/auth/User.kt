@@ -3,6 +3,7 @@ package com.solo4.millionerquiz.model.auth
 import android.content.SharedPreferences
 import androidx.core.content.edit
 import com.google.firebase.auth.FirebaseUser
+import com.solo4.millionerquiz.data.auth.AuthManager.Companion.DEF_USERNAME
 import org.koin.java.KoinJavaComponent.get
 
 data class User(
@@ -23,7 +24,7 @@ data class User(
 
         fun map(firebaseUser: FirebaseUser?): User {
             return User(
-                name = firebaseUser?.displayName ?: "Unknown Username",
+                name = firebaseUser?.displayName ?: DEF_USERNAME,
                 profileImageUrl = firebaseUser?.photoUrl?.toString() ?: IMAGE_PLACEHOLDER,
                 isAnonymous = firebaseUser?.isAnonymous ?: true,
                 email = firebaseUser?.email

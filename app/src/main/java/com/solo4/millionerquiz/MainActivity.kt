@@ -6,8 +6,9 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.SideEffect
@@ -34,6 +35,13 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         installSplashScreen().setKeepOnScreenCondition { false }
+        val navBarSize = try {
+            resources.getDimensionPixelSize(
+                resources.getIdentifier("navigation_bar_height", "dimen", "android")
+            )
+        } catch (e: Exception) {
+            0
+        }
         setContent {
             val navController = rememberNavController()
             QuizGameTheme {
@@ -44,15 +52,17 @@ class MainActivity : ComponentActivity() {
                 if (!view.isInEditMode) {
                     SideEffect {
                         WindowCompat.setDecorFitsSystemWindows(window, false)
-                        (view.context as Activity).window.statusBarColor = Color.White.copy(alpha =  0f).toArgb()
-                        WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = !darkTheme
-                        WindowCompat.getInsetsController(window, view).isAppearanceLightNavigationBars = !darkTheme
+                        window.statusBarColor = Color.White.copy(alpha = 0f).toArgb()
+                        WindowCompat.getInsetsController(window, view)
+                            .isAppearanceLightStatusBars = !darkTheme
+                        WindowCompat.getInsetsController(window, view)
+                            .isAppearanceLightNavigationBars = !darkTheme
                     }
                 }
                 Surface(
                     modifier = Modifier
                         .fillMaxSize()
-                        .imePadding(),
+                        .windowInsetsPadding(WindowInsets(bottom = navBarSize)),
                     color = MaterialTheme.colorScheme.background
                 ) {
                     Image(

@@ -9,6 +9,8 @@ sealed class Routes {
     open val route: String = ""
     object AuthScreenRoute : Routes()
     object MenuScreenRoute : Routes()
+    object SettingsScreenRoute : Routes()
+    object ProfileScreenRoute : Routes()
     object DevScreenRoute : Routes()
     object PickLevelRoute : Routes(), Argumentative {
         override val route: String = "$name/{$ARG_CURRENT_LEVEL}"

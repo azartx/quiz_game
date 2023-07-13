@@ -6,7 +6,8 @@ import com.solo4.millionerquiz.ui.screens.auth.AuthViewModel
 import com.solo4.millionerquiz.ui.screens.game.GameViewModel
 import com.solo4.millionerquiz.ui.screens.menu.MenuViewModel
 import com.solo4.millionerquiz.ui.screens.picklevel.PickLevelViewModel
-import org.koin.android.BuildConfig
+import com.solo4.millionerquiz.ui.screens.profile.ProfileViewModel
+import com.solo4.millionerquiz.ui.screens.settings.SettingsViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -17,4 +18,6 @@ val viewModelModule = module {
     viewModel { PickLevelViewModel(get(), get()) }
     viewModel { AddLevelViewModel() }
     viewModel { MenuViewModel(get()) }
+    viewModel { SettingsViewModel(get(), get()) }
+    viewModel { ProfileViewModel(get()) }
 }
