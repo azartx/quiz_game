@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'com.google.firebase.crashlytics'
     id 'com.google.gms.google-services'
 }
 
@@ -25,6 +26,15 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            buildConfigField "String", "ad_banner_id", "\"ca-app-pub-2425331811935876/4874112919\""
+            buildConfigField "String", "ad_interstitial_id", "\"ca-app-pub-2425331811935876/7997053982\""
+            buildConfigField "boolean", "showAd", "true"
+        }
+        debug {
+            buildConfigField "String", "ad_banner_id", "\"ca-app-pub-3940256099942544/6300978111\""
+            buildConfigField "String", "ad_interstitial_id", "\"ca-app-pub-3940256099942544/1033173712\""
+            buildConfigField "boolean", "showAd", "true"
         }
     }
     compileOptions {
@@ -49,18 +59,18 @@ android {
 
     flavorDimensions += "application"
     productFlavors {
+        create("full") {
+            dimension = "application"
+            versionNameSuffix = "-full"
+
+            buildConfigField "boolean", "isFullApp", "true"
+        }
         create("createquestions") {
             dimension = "application"
             applicationIdSuffix = ".createquestions"
             versionNameSuffix = "-createquestions"
 
             buildConfigField "boolean", "isFullApp", "false"
-        }
-        create("app") {
-            dimension = "application"
-            versionNameSuffix = "-full"
-
-            buildConfigField "boolean", "isFullApp", "true"
         }
     }
 }
@@ -101,4 +111,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth-ktx'
     implementation 'com.google.firebase:firebase-firestore-ktx'
     implementation 'com.google.firebase:firebase-storage-ktx'
+    implementation 'com.google.firebase:firebase-crashlytics-ktx'
+
+    // ads
+    implementation 'com.google.android.gms:play-services-ads:22.2.0'
 }

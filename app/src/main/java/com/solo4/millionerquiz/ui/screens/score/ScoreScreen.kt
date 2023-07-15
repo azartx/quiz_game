@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.solo4.millionerquiz.R
 import com.solo4.millionerquiz.data.MediaManager
+import com.solo4.millionerquiz.ui.components.AdBannerBottomSpacer
 import com.solo4.millionerquiz.ui.theme.contentPadding
 import org.koin.androidx.compose.koinViewModel
 
@@ -93,6 +94,7 @@ fun ScoreScreen(navHostController: NavHostController) {
                     }
                 }
             })
+            AdBannerBottomSpacer()
         }
     }
 }

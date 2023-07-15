@@ -33,6 +33,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.solo4.millionerquiz.R
 import com.solo4.millionerquiz.model.database.PreferredLevelLang
+import com.solo4.millionerquiz.ui.components.AdBannerBottomSpacer
 import com.solo4.millionerquiz.ui.theme.contentPadding
 import org.koin.androidx.compose.koinViewModel
 
@@ -106,8 +107,7 @@ fun SettingsScreen(navHostController: NavHostController) {
                         )
                 )
             }
-
-            Spacer(modifier = Modifier.height(30.dp))
+            AdBannerBottomSpacer()
         }
     }
 }

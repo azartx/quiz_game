@@ -47,6 +47,7 @@ import coil.compose.AsyncImage
 import com.solo4.millionerquiz.App
 import com.solo4.millionerquiz.R
 import com.solo4.millionerquiz.data.MediaManager
+import com.solo4.millionerquiz.ui.components.AdBannerBottomSpacer
 import com.solo4.millionerquiz.ui.navigation.Routes
 import com.solo4.millionerquiz.ui.theme.contentPadding
 import kotlinx.coroutines.CoroutineScope
@@ -232,6 +233,7 @@ fun ProfileScreen(navHostController: NavHostController) {
             ) {
                 Text(text = stringResource(R.string.log_out))
             }
+            AdBannerBottomSpacer()
         }
     }
 }

@@ -25,6 +25,7 @@ import androidx.navigation.NavHostController
 import com.solo4.millionerquiz.BuildConfig
 import com.solo4.millionerquiz.R
 import com.solo4.millionerquiz.data.MediaManager
+import com.solo4.millionerquiz.ui.components.AdBannerBottomSpacer
 import com.solo4.millionerquiz.ui.theme.contentPadding
 
 @Composable
@@ -63,6 +64,7 @@ fun AboutScreen(navHostController: NavHostController) {
             Spacer(modifier = Modifier.height(38.dp))
 
             Text(text = "${stringResource(R.string.about_app_body)} ${BuildConfig.VERSION_NAME}_${BuildConfig.VERSION_CODE}")
+            AdBannerBottomSpacer()
         }
     }
 }

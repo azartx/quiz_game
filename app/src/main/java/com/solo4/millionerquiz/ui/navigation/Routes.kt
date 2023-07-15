@@ -3,10 +3,11 @@ package com.solo4.millionerquiz.ui.navigation
 import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
+import com.solo4.millionerquiz.data.advert.routeWithoutAD
 
 sealed class Routes {
     open val name: String = this::class.java.simpleName
-    open val route: String = ""
+    open val route: String = name
     object AuthScreenRoute : Routes()
     object MenuScreenRoute : Routes()
     object SettingsScreenRoute : Routes()
@@ -15,6 +16,7 @@ sealed class Routes {
     object ScoreScreenRoute : Routes()
     object DevScreenRoute : Routes()
     object PickLevelRoute : Routes(), Argumentative {
+        override val name: String = this::class.java.simpleName.routeWithoutAD()
         override val route: String = "$name/{$ARG_CURRENT_LEVEL}"
         override val args: List<NamedNavArgument> = listOf(
             navArgument(ARG_CURRENT_LEVEL) { NavType.IntType }
@@ -27,6 +29,7 @@ sealed class Routes {
         }
     }
     object GameRoute : Routes(), Argumentative {
+        override val name: String = this::class.java.simpleName.routeWithoutAD()
         override val route: String = "$name/{$ARG_CURRENT_LEVEL}"
         override val args: List<NamedNavArgument> = listOf(
             navArgument(ARG_CURRENT_LEVEL) { NavType.IntType }

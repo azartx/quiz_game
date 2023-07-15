@@ -49,6 +49,7 @@ import com.solo4.millionerquiz.R
 import com.solo4.millionerquiz.data.MediaManager
 import com.solo4.millionerquiz.data.auth.AuthState
 import com.solo4.millionerquiz.model.database.PreferredLevelLang
+import com.solo4.millionerquiz.ui.components.AdBannerBottomSpacer
 import com.solo4.millionerquiz.ui.navigation.Routes
 import com.solo4.millionerquiz.ui.theme.contentPadding
 import kotlinx.coroutines.CoroutineScope
@@ -194,7 +195,7 @@ fun AuthScreen(navHostController: NavHostController = rememberNavController()) {
                 }) {
                 Text(text = stringResource(id = R.string.continue_as_anonymous))
             }
-            Spacer(modifier = Modifier.height(50.dp))
+            AdBannerBottomSpacer()
         }
     }
 }

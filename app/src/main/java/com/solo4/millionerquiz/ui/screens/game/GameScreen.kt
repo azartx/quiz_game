@@ -22,6 +22,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -33,6 +34,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -43,6 +45,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
+import com.solo4.millionerquiz.MainActivity
 import com.solo4.millionerquiz.R
 import com.solo4.millionerquiz.data.MediaManager
 import com.solo4.millionerquiz.model.game.Answer
@@ -51,6 +54,8 @@ import com.solo4.millionerquiz.ui.components.AnswerItem
 import com.solo4.millionerquiz.ui.components.StarBlock
 import com.solo4.millionerquiz.ui.theme.QuizGameTheme
 import com.solo4.millionerquiz.ui.theme.contentPadding
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -62,6 +67,8 @@ fun GameScreen(navHostController: NavHostController = rememberNavController()) {
 
     val currentState by viewModel.currentQuestion.collectAsState()
 
+    var activity: MainActivity? = LocalContext.current as? MainActivity
+
     fun invalidateAnswers() {
         pickedAnswer = null
         checkResults = false
@@ -69,6 +76,14 @@ fun GameScreen(navHostController: NavHostController = rememberNavController()) {
 
     LaunchedEffect(key1 = null, block = {
         viewModel.initialize()
+        launch {
+            viewModel.backFromGameScreenEvent.collectLatest {
+                navHostController.popBackStack()
+            }
+        }
+    })
+    DisposableEffect(key1 = "", effect = {
+        onDispose { activity = null }
     })
     Box(
         modifier = Modifier
@@ -209,7 +224,7 @@ fun GameScreen(navHostController: NavHostController = rememberNavController()) {
                     Spacer(modifier = Modifier.height(50.dp))
                     Button(onClick = {
                         MediaManager.playClick()
-                        navHostController.popBackStack()
+                        viewModel.backWithAdvert(activity)
                     }) {
                         Text(text = stringResource(R.string.continue_game))
                     }

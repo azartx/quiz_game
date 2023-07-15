@@ -1,10 +1,12 @@
 package com.solo4.millionerquiz.ui.screens.game
 
+import android.app.Activity
 import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.solo4.millionerquiz.data.advert.AdvertController
 import com.solo4.millionerquiz.data.auth.AuthManager
 import com.solo4.millionerquiz.data.repositories.questions.LevelsRepository
 import com.solo4.millionerquiz.data.repositories.score.ScoreRepository
@@ -15,14 +17,17 @@ import com.solo4.millionerquiz.model.game.Question
 import com.solo4.millionerquiz.ui.navigation.Routes.Companion.ARG_CURRENT_LEVEL
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class GameViewModel(
     private val savedStateHandle: SavedStateHandle,
     private val authManager: AuthManager,
     private val levelRepository: LevelsRepository,
-    private val scoreRepository: ScoreRepository
+    private val scoreRepository: ScoreRepository,
+    private val adController: AdvertController
 ) : ViewModel() {
     private val initialQuestion = Question(0, "Loading", "", listOf())
 
@@ -38,6 +43,8 @@ class GameViewModel(
 
     val scoreForEndGameUI = mutableStateOf(0)
 
+    val backFromGameScreenEvent = MutableSharedFlow<Unit>()
+
     fun initialize() {
         viewModelScope.launch(Dispatchers.IO) {
             val currentLevel = savedStateHandle.get<String>(ARG_CURRENT_LEVEL)?.toInt() ?: 1
@@ -45,6 +52,9 @@ class GameViewModel(
             currentQuestion.value = level.questions.first()
             questionsCount = level.questions.size
             screenState.value = GameScreenState.GameInProgress(level.questions)
+            withContext(Dispatchers.Main) {
+                adController.loadFullscreenAdvert()
+            }
         }
     }
 
@@ -99,6 +109,17 @@ class GameViewModel(
         stars += if (rightAnswersCount > (needRightQuestionsForOneStar * 2)) 1 else 0
         stars += if (rightAnswersCount >= (questionsCount - 1)) 1 else 0
         return stars
+    }
+
+    fun backWithAdvert(activity: Activity?) {
+        viewModelScope.launch {
+            if (activity == null) {
+                backFromGameScreenEvent.emit(Unit)
+                return@launch
+            }
+            adController.showFullscreenAd(activity)
+            backFromGameScreenEvent.emit(Unit)
+        }
     }
 
     private companion object {

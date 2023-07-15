@@ -1,6 +1,7 @@
 package com.solo4.millionerquiz
 
 import android.app.Application
+import com.google.android.gms.ads.MobileAds
 import com.solo4.millionerquiz.data.di.dataModule
 import com.solo4.millionerquiz.data.di.repositoryModule
 import com.solo4.millionerquiz.data.di.utilsModule
@@ -17,6 +18,7 @@ class App : Application() {
             androidContext(this@App)
             modules(listOf(viewModelModule, repositoryModule, dataModule, utilsModule))
         }
+        MobileAds.initialize(this)
     }
 
     companion object {
