@@ -31,6 +31,7 @@ import androidx.navigation.NavHostController
 import com.solo4.millionerquiz.R
 import com.solo4.millionerquiz.data.MediaManager
 import com.solo4.millionerquiz.ui.components.AdBannerBottomSpacer
+import com.solo4.millionerquiz.ui.theme.bgBrush
 import com.solo4.millionerquiz.ui.theme.contentPadding
 import org.koin.androidx.compose.koinViewModel
 
@@ -47,7 +48,7 @@ fun ScoreScreen(navHostController: NavHostController) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(MaterialTheme.colorScheme.background, RoundedCornerShape(20.dp))
+                .background(bgBrush, RoundedCornerShape(20.dp))
                 .padding(20.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {

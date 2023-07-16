@@ -52,6 +52,7 @@ import com.solo4.millionerquiz.data.auth.AuthState
 import com.solo4.millionerquiz.model.database.PreferredLevelLang
 import com.solo4.millionerquiz.ui.components.AdBannerBottomSpacer
 import com.solo4.millionerquiz.ui.navigation.Routes
+import com.solo4.millionerquiz.ui.theme.bgBrush
 import com.solo4.millionerquiz.ui.theme.contentPadding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -94,7 +95,7 @@ fun AuthScreen(navHostController: NavHostController = rememberNavController()) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(MaterialTheme.colorScheme.background, RoundedCornerShape(20.dp))
+                .background(bgBrush, RoundedCornerShape(20.dp))
                 .padding(20.dp)
                 .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally

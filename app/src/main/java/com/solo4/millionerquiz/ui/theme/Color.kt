@@ -1,5 +1,8 @@
 package com.solo4.millionerquiz.ui.theme
 
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 
 val Blue10 = Color(0xFF000F5E)
@@ -47,3 +50,13 @@ val GreenPickAnswer = Color(0xFF558B2F)
 val GreenRightAnswer = Color(0xFF8BC34A)
 val YellowRightAnswer = Color(0xFFFFCA28)
 val RedBadAnswer = Color(0xFFEF5350)
+
+val bgBrush = Brush.horizontalGradient(listOf(Color(0xFF67B26F), Color(0xff4ca2cd)))
+
+@Composable
+fun buttonColors() = ButtonDefaults.buttonColors(
+    containerColor = Blue80,
+    contentColor = Color.Black,
+    disabledContainerColor = Blue80,
+    disabledContentColor = Color.Black
+)

@@ -28,6 +28,7 @@ import com.solo4.millionerquiz.data.MediaManager
 import com.solo4.millionerquiz.ui.components.LevelItem
 import com.solo4.millionerquiz.ui.navigation.Routes
 import com.solo4.millionerquiz.ui.theme.QuizGameTheme
+import com.solo4.millionerquiz.ui.theme.bgBrush
 import com.solo4.millionerquiz.ui.theme.contentPadding
 import org.koin.androidx.compose.koinViewModel
 
@@ -45,7 +46,7 @@ fun PickLevelScreen(navHostController: NavHostController = rememberNavController
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(MaterialTheme.colorScheme.background, RoundedCornerShape(20.dp))
+                    .background(bgBrush, RoundedCornerShape(20.dp))
                     .padding(20.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 state = rememberLazyListState(viewModel.currentLevel, viewModel.currentLevel),

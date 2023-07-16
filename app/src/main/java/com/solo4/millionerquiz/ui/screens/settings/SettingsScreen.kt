@@ -35,6 +35,7 @@ import androidx.navigation.NavHostController
 import com.solo4.millionerquiz.R
 import com.solo4.millionerquiz.model.database.PreferredLevelLang
 import com.solo4.millionerquiz.ui.components.AdBannerBottomSpacer
+import com.solo4.millionerquiz.ui.theme.bgBrush
 import com.solo4.millionerquiz.ui.theme.contentPadding
 import org.koin.androidx.compose.koinViewModel
 
@@ -49,7 +50,7 @@ fun SettingsScreen(navHostController: NavHostController) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(MaterialTheme.colorScheme.background, RoundedCornerShape(20.dp))
+                .background(bgBrush, RoundedCornerShape(20.dp))
                 .padding(20.dp)
                 .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally

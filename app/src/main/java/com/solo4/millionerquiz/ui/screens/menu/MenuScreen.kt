@@ -17,7 +17,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -25,6 +25,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -34,14 +35,18 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
-import com.google.android.gms.ads.AdSize
 import com.solo4.millionerquiz.App
 import com.solo4.millionerquiz.R
 import com.solo4.millionerquiz.data.MediaManager
 import com.solo4.millionerquiz.model.auth.User
 import com.solo4.millionerquiz.ui.components.AdBannerBottomSpacer
 import com.solo4.millionerquiz.ui.navigation.Routes
+import com.solo4.millionerquiz.ui.theme.Blue80
+import com.solo4.millionerquiz.ui.theme.GreenPickAnswer
+import com.solo4.millionerquiz.ui.theme.GreenRightAnswer
 import com.solo4.millionerquiz.ui.theme.QuizGameTheme
+import com.solo4.millionerquiz.ui.theme.bgBrush
+import com.solo4.millionerquiz.ui.theme.buttonColors
 import com.solo4.millionerquiz.ui.theme.contentPadding
 import org.koin.androidx.compose.navigation.koinNavViewModel
 
@@ -58,7 +63,7 @@ fun MenuScreen(navHostController: NavHostController = rememberNavController()) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(MaterialTheme.colorScheme.background, RoundedCornerShape(20.dp))
+                .background(bgBrush, RoundedCornerShape(20.dp))
                 .padding(20.dp)
                 .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally
@@ -69,7 +74,13 @@ fun MenuScreen(navHostController: NavHostController = rememberNavController()) {
                     .clip(RoundedCornerShape(360.dp))
                     .background(Color.LightGray, RoundedCornerShape(360.dp))
                     .clickable {
-                               Toast.makeText(App.app, App.app.getString(R.string.meaagse_change_profile_photo), Toast.LENGTH_SHORT).show()
+                        Toast
+                            .makeText(
+                                App.app,
+                                App.app.getString(R.string.meaagse_change_profile_photo),
+                                Toast.LENGTH_SHORT
+                            )
+                            .show()
                     },
                 model = viewModel.getUserImage(),
                 contentScale = ContentScale.Crop,
@@ -82,6 +93,7 @@ fun MenuScreen(navHostController: NavHostController = rememberNavController()) {
             Spacer(modifier = Modifier.height(20.dp))
             Button(
                 modifier = Modifier.fillMaxWidth(),
+                colors = buttonColors(),
                 shape = RoundedCornerShape(10.dp),
                 onClick = {
                     MediaManager.playClick()
@@ -99,6 +111,7 @@ fun MenuScreen(navHostController: NavHostController = rememberNavController()) {
                         .weight(1f)
                         .height(100.dp),
                     shape = RoundedCornerShape(20.dp),
+                    colors = buttonColors(),
                     onClick = {
                         MediaManager.playClick()
                         navHostController.navigate(Routes.ProfileScreenRoute.name)
@@ -112,6 +125,7 @@ fun MenuScreen(navHostController: NavHostController = rememberNavController()) {
                         .weight(1f)
                         .height(100.dp),
                     shape = RoundedCornerShape(20.dp),
+                    colors = buttonColors(),
                     onClick = {
                         MediaManager.playClick()
                         navHostController.navigate(Routes.ScoreScreenRoute.name)
@@ -127,6 +141,7 @@ fun MenuScreen(navHostController: NavHostController = rememberNavController()) {
                         .weight(1f)
                         .height(100.dp),
                     shape = RoundedCornerShape(20.dp),
+                    colors = buttonColors(),
                     onClick = {
                         MediaManager.playClick()
                         navHostController.navigate(Routes.SettingsScreenRoute.name)
@@ -140,6 +155,7 @@ fun MenuScreen(navHostController: NavHostController = rememberNavController()) {
                         .weight(1f)
                         .height(100.dp),
                     shape = RoundedCornerShape(20.dp),
+                    colors = buttonColors(),
                     onClick = {
                         MediaManager.playClick()
                         navHostController.navigate(Routes.AboutScreenRoute.name)

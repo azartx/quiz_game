@@ -53,6 +53,7 @@ import com.solo4.millionerquiz.model.game.GameScreenState
 import com.solo4.millionerquiz.ui.components.AnswerItem
 import com.solo4.millionerquiz.ui.components.StarBlock
 import com.solo4.millionerquiz.ui.theme.QuizGameTheme
+import com.solo4.millionerquiz.ui.theme.bgBrush
 import com.solo4.millionerquiz.ui.theme.contentPadding
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -93,7 +94,7 @@ fun GameScreen(navHostController: NavHostController = rememberNavController()) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(MaterialTheme.colorScheme.background, RoundedCornerShape(20.dp))
+                .background(bgBrush, RoundedCornerShape(20.dp))
                 .padding(20.dp)
                 .verticalScroll(rememberScrollState()),
         ) {
@@ -114,14 +115,14 @@ fun GameScreen(navHostController: NavHostController = rememberNavController()) {
             Spacer(modifier = Modifier.height(10.dp))
             Text(
                 text = stringResource(R.string.question).plus(" ${currentState.id}"),
-                color = MaterialTheme.colorScheme.primary,
+                //color = MaterialTheme.colorScheme.primary,
                 style = MaterialTheme.typography.titleSmall
             )
             Spacer(modifier = Modifier.height(20.dp))
             Text(
                 modifier = Modifier.align(Alignment.CenterHorizontally),
                 text = currentState.questionText,
-                color = MaterialTheme.colorScheme.primary,
+               // color = MaterialTheme.colorScheme.primary,
                 style = MaterialTheme.typography.bodyLarge
             )
             Spacer(modifier = Modifier.height(40.dp))
