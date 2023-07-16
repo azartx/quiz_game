@@ -38,6 +38,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
@@ -101,9 +102,11 @@ fun AuthScreen(navHostController: NavHostController = rememberNavController()) {
 
             Spacer(modifier = Modifier.height(50.dp))
             Text(
+                modifier = Modifier.fillMaxWidth(),
                 text = stringResource(R.string.welcome).plus(" ")
                     .plus(stringResource(id = R.string.app_name)).plus("!"),
-                style = MaterialTheme.typography.titleLarge
+                style = MaterialTheme.typography.titleLarge,
+                textAlign = TextAlign.Center
             )
             Spacer(modifier = Modifier.height(70.dp))
             Text(
@@ -149,8 +152,10 @@ fun AuthScreen(navHostController: NavHostController = rememberNavController()) {
 
             Spacer(modifier = Modifier.height(30.dp))
             Text(
+                modifier = Modifier.fillMaxWidth(),
                 text = stringResource(R.string.do_you_want_to_sign_in),
-                style = TextStyle(fontSize = 20.sp)
+                style = TextStyle(fontSize = 20.sp),
+                textAlign = TextAlign.Center
             )
             Spacer(modifier = Modifier.height(20.dp))
 

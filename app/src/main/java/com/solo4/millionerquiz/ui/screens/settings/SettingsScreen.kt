@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -68,11 +69,14 @@ fun SettingsScreen(navHostController: NavHostController) {
                 )
             }
             Text(
-                text = "Settings",
+                text = stringResource(id = R.string.settings),
                 style = MaterialTheme.typography.titleLarge
             )
             Spacer(modifier = Modifier.height(70.dp))
-            Text(text = stringResource(R.string.change_questions_language), style = TextStyle(fontSize = 20.sp))
+            Text(
+                text = stringResource(R.string.change_questions_language),
+                style = TextStyle(fontSize = 20.sp)
+            )
             Spacer(modifier = Modifier.height(18.dp))
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
                 Image(
@@ -106,6 +110,20 @@ fun SettingsScreen(navHostController: NavHostController) {
                             ) else BorderStroke(0.dp, Color.Blue)
                         )
                 )
+            }
+            Spacer(modifier = Modifier.height(20.dp))
+            Row(modifier = Modifier.fillMaxWidth()) {
+                Text(modifier = Modifier.weight(1f), text = stringResource(R.string.settings_music))
+                Checkbox(
+                    checked = viewModel.isMusicEnabled.value,
+                    onCheckedChange = { viewModel.changeMusicState(it) })
+            }
+            Spacer(modifier = Modifier.height(20.dp))
+            Row(modifier = Modifier.fillMaxWidth()) {
+                Text(modifier = Modifier.weight(1f), text = stringResource(R.string.settings_sounds))
+                Checkbox(
+                    checked = viewModel.isSoundsEnabled.value,
+                    onCheckedChange = { viewModel.changeSoundsState(it) })
             }
             AdBannerBottomSpacer()
         }

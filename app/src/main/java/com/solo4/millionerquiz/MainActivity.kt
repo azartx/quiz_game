@@ -32,17 +32,20 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.solo4.millionerquiz.data.MediaManager
 import com.solo4.millionerquiz.debug.AddLevelScreen
 import com.solo4.millionerquiz.ui.components.AdvertBanner
 import com.solo4.millionerquiz.ui.navigation.AppNavHost
 import com.solo4.millionerquiz.ui.navigation.Routes
 import com.solo4.millionerquiz.ui.screens.auth.AuthScreen
 import com.solo4.millionerquiz.ui.theme.QuizGameTheme
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : ComponentActivity() {
 
     private val viewModel: MainActivityViewModel by viewModel()
+    private val mediaManager: MediaManager by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,6 +57,7 @@ class MainActivity : ComponentActivity() {
         )
         // ****************************
         installSplashScreen().setKeepOnScreenCondition { false }
+        lifecycle.addObserver(mediaManager) // initialize app music
         val navBarSize = try {
             resources.getDimensionPixelSize(
                 resources.getIdentifier("navigation_bar_height", "dimen", "android")

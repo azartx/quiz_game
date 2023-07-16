@@ -31,4 +31,6 @@
     <string name="about_app_body">Quiz Application\nVersion:</string>
     <string name="about_app_title">About the app</string>
     <string name="or">Or</string>
+    <string name="settings_music">Music:</string>
+    <string name="settings_sounds">Sounds:</string>
 </resources>

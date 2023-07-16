@@ -20,7 +20,7 @@ val viewModelModule = module {
     viewModel { PickLevelViewModel(get()) }
     viewModel { AddLevelViewModel() }
     viewModel { MenuViewModel(get()) }
-    viewModel { SettingsViewModel(get()) }
+    viewModel { SettingsViewModel(get(), get()) }
     viewModel { ProfileViewModel(androidApplication(), get()) }
     viewModel { ScoreViewModel(get(), get()) }
 }

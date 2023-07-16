@@ -5,16 +5,22 @@ import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.media.AudioAttributes
+import android.media.MediaPlayer
 import android.media.SoundPool
 import android.net.Uri
 import androidx.core.content.edit
+import androidx.lifecycle.DefaultLifecycleObserver
+import androidx.lifecycle.LifecycleOwner
 import com.solo4.millionerquiz.App
 import com.solo4.millionerquiz.R
+import com.solo4.millionerquiz.data.analytics.Logger
 import org.koin.java.KoinJavaComponent
 import java.io.ByteArrayOutputStream
 import java.io.File
 
-class MediaManager(private val sharedPreferences: SharedPreferences) {
+class MediaManager(private val sharedPreferences: SharedPreferences): DefaultLifecycleObserver {
+
+    var isMusicLaunched: Boolean = false
 
     var isMusicEnabled: Boolean
         get() = sharedPreferences.getBoolean(PREFS_IS_MUSIC_ENABLED, true)
@@ -24,6 +30,23 @@ class MediaManager(private val sharedPreferences: SharedPreferences) {
         }
 
     private var _isMusicEnabled = isMusicEnabled
+        set(value) {
+            field = value
+            if (value) {
+                playGameMusic()
+            } else {
+                musicPlayer.pause()
+            }
+        }
+
+    var isSoundsEnabled: Boolean
+        get() = sharedPreferences.getBoolean(PREFS_IS_SOUNDS_ENABLED, true)
+        set(value) {
+            _isSoundsEnabled = value
+            sharedPreferences.edit { putBoolean(PREFS_IS_SOUNDS_ENABLED, value) }
+        }
+
+    private var _isSoundsEnabled = isMusicEnabled
 
     private val soundsPool = SoundPool.Builder().setAudioAttributes(
         AudioAttributes.Builder()
@@ -32,11 +55,14 @@ class MediaManager(private val sharedPreferences: SharedPreferences) {
             .build()
     ).build()
 
+    private val musicPlayer by lazy { MediaPlayer() }
+
     private val poolMusicIds = mutableMapOf<String, Int>()
 
     init {
         poolMusicIds[POOL_MUSIC_CLICK] =
             soundsPool.load(App.app.resources.openRawResourceFd(R.raw.click), 1)
+        poolMusicIds[POOL_MUSIC_GAME_MUSIC] = R.raw.music2
     }
 
     fun prepareMultipartData(
@@ -57,7 +83,7 @@ class MediaManager(private val sharedPreferences: SharedPreferences) {
     }
 
     fun playClickSound() {
-        if (_isMusicEnabled) {
+        if (_isSoundsEnabled) {
             soundsPool.play(
                 poolMusicIds[POOL_MUSIC_CLICK]!!,
                 1f,
@@ -66,6 +92,34 @@ class MediaManager(private val sharedPreferences: SharedPreferences) {
                 0,
                 1f
             )
+        }
+    }
+
+    fun playGameMusic() {
+        if (isMusicLaunched) {
+            try {
+                musicPlayer.start()
+            } catch (e: Exception) {
+                Logger.e("MediaManager", "Failed resuming music", tr = e)
+            }
+            return
+        }
+        if (_isMusicEnabled && !musicPlayer.isPlaying) {
+            musicPlayer.apply {
+                try {
+                    val musicDescriptor = App.app.resources.openRawResourceFd(poolMusicIds[POOL_MUSIC_GAME_MUSIC]!!)
+
+                    setDataSource(musicDescriptor)
+                    prepareAsync()
+                    setOnPreparedListener {
+                        isLooping = true
+                        start()
+                        isMusicLaunched = true
+                    }
+                } catch (e: Exception) {
+                    Logger.e("MediaManager", "Error while playing app music", tr = e)
+                }
+            }
         }
     }
 
@@ -101,13 +155,29 @@ class MediaManager(private val sharedPreferences: SharedPreferences) {
         }
     }
 
+    override fun onPause(owner: LifecycleOwner) {
+        musicPlayer.pause()
+        super.onPause(owner)
+    }
+
+    override fun onResume(owner: LifecycleOwner) {
+        super.onResume(owner)
+        playMusic()
+    }
+
     companion object {
+        const val PREFS_IS_SOUNDS_ENABLED = "PREFS_IS_SOUNDS_ENABLED"
         const val PREFS_IS_MUSIC_ENABLED = "PREFS_IS_MUSIC_ENABLED"
 
         const val POOL_MUSIC_CLICK = "POOL_MUSIC_CLICK"
+        const val POOL_MUSIC_GAME_MUSIC = "POOL_MUSIC_GAME_MUSIC"
 
         fun playClick() {
             KoinJavaComponent.get<MediaManager>(MediaManager::class.java).playClickSound()
+        }
+
+        fun playMusic() {
+            KoinJavaComponent.get<MediaManager>(MediaManager::class.java).playGameMusic()
         }
     }
 }
