@@ -172,19 +172,19 @@ fun GameScreen(navHostController: NavHostController = rememberNavController()) {
                 )
             }
         }
-        Image(
-            modifier = Modifier
-                .padding(40.dp)
-                .align(Alignment.TopEnd)
-                .background(Color.White)
-                .border(BorderStroke(1.dp, Color.Black))
-                .clickable {
-                    MediaManager.playClick()
-                    navHostController.popBackStack()
-                },
-            painter = painterResource(id = R.drawable.ic_arrow_bask),
-            contentDescription = "Back"
-        )
+//        Image(
+//            modifier = Modifier
+//                .padding(40.dp)
+//                .align(Alignment.TopEnd)
+//                .background(Color.White)
+//                .border(BorderStroke(1.dp, Color.Black))
+//                .clickable {
+//                    MediaManager.playClick()
+//                    navHostController.popBackStack()
+//                },
+//            painter = painterResource(id = R.drawable.ic_arrow_bask),
+//            contentDescription = "Back"
+//        )
         if (viewModel.screenState.value is GameScreenState.EndGame) {
             Box(
                 modifier = Modifier

@@ -53,7 +53,7 @@ fun AnswerItem(
     )*/
 
     val bgColor by animateColorAsState(
-        targetValue = if (isShowResult) if (answer.isRight && isPicked) GreenRightAnswer else if (!answer.isRight && isPicked) RedBadAnswer else if (answer.isRight && !isPicked) YellowRightAnswer else MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.secondary,
+        targetValue = if (isShowResult) if (answer.isRight && isPicked) GreenRightAnswer else if (!answer.isRight && isPicked) RedBadAnswer else if (answer.isRight && !isPicked) GreenRightAnswer else MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.secondary,
         animationSpec = tween(durationMillis = 300)
     )
 
@@ -85,7 +85,7 @@ fun AnswerItem(
                         .alpha(alpha.toFloat())
                         .width(width)
                         .onSizeChanged { alpha = if (it.width <= 50) 0 else 1 },
-                    onDraw = { drawRect(GreenPickAnswer) }
+                    onDraw = { drawRect(YellowRightAnswer) }
                 )
             }
 
