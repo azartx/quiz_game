@@ -34,4 +34,5 @@
     <string name="or">Или</string>
     <string name="settings_music">Музыка:</string>
     <string name="settings_sounds">Звуки:</string>
+    <string name="meaagse_change_profile_photo">Вы можете изменить картинку профиля через настройки профиля</string>
 </resources>

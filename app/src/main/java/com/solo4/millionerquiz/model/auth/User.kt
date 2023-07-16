@@ -10,7 +10,7 @@ import java.util.UUID
 data class User(
     val id: String,
     val name: String,
-    val profileImageUrl: String,
+    val profileImageUrl: String?,
     val isAnonymous: Boolean,
     val email: String? = null
 ) {
@@ -21,7 +21,7 @@ data class User(
         val unknown: User = User(
             id = UUID.randomUUID().toString(),
             name = DEF_USERNAME,
-            profileImageUrl = IMAGE_PLACEHOLDER,
+            profileImageUrl = null,
             isAnonymous = true
         )
 
@@ -29,7 +29,7 @@ data class User(
             return User(
                 id = firebaseUser?.uid ?: UUID.randomUUID().toString(),
                 name = firebaseUser?.displayName ?: backingUsername,
-                profileImageUrl = firebaseUser?.photoUrl?.toString() ?: IMAGE_PLACEHOLDER,
+                profileImageUrl = firebaseUser?.photoUrl?.toString(),
                 isAnonymous = firebaseUser?.isAnonymous ?: true,
                 email = firebaseUser?.email
             )

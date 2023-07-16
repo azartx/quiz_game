@@ -24,7 +24,7 @@ class ProfileViewModel(application: Application, private val authManager: AuthMa
 
     val validationState = MutableSharedFlow<String>()
 
-    fun getUserImage(): String {
+    fun getUserImage(): String? {
         return authManager.authState.value.user.profileImageUrl
     }
 

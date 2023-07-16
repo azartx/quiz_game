@@ -154,8 +154,8 @@ fun ProfileScreen(navHostController: NavHostController) {
                 model = viewModel.getUserImage(),
                 contentScale = ContentScale.Crop,
                 contentDescription = stringResource(id = R.string.user_profile_image),
-                error = painterResource(id = R.drawable.ic_user_placeholder),
-                placeholder = painterResource(id = R.drawable.ic_user_placeholder)
+                error = painterResource(id = R.drawable.placeholder_avatar),
+                placeholder = painterResource(id = R.drawable.placeholder_avatar)
             )
             Spacer(modifier = Modifier.height(20.dp))
 
