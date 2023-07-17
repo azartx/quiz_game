@@ -3,17 +3,16 @@ package com.solo4.millionerquiz.ui.screens.profile
 import android.app.Application
 import android.net.Uri
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.solo4.millionerquiz.R
 import com.solo4.millionerquiz.data.auth.AuthManager
 import com.solo4.millionerquiz.data.auth.AuthManager.Companion.DEF_USERNAME
+import com.solo4.millionerquiz.ui.base.BaseAndroidVM
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
 
-class ProfileViewModel(application: Application, private val authManager: AuthManager) :
-    AndroidViewModel(application) {
+class ProfileViewModel(private val authManager: AuthManager) : BaseAndroidVM() {
 
     val authState = authManager.authState
 

@@ -22,6 +22,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -49,6 +50,7 @@ import com.solo4.millionerquiz.BuildConfig
 import com.solo4.millionerquiz.R
 import com.solo4.millionerquiz.data.MediaManager
 import com.solo4.millionerquiz.data.auth.AuthState
+import com.solo4.millionerquiz.model.ScreenState
 import com.solo4.millionerquiz.model.database.PreferredLevelLang
 import com.solo4.millionerquiz.ui.components.AdBannerBottomSpacer
 import com.solo4.millionerquiz.ui.navigation.Routes
@@ -71,17 +73,21 @@ fun AuthScreen(navHostController: NavHostController = rememberNavController()) {
     DisposableEffect(key1 = "", effect = {
         viewModel.generateRandomUsername()
         val scope = CoroutineScope(Dispatchers.Main).launch {
-            viewModel.authState.collectLatest {
-                if (it !is AuthState.None) {
-                    navHostController.navigate(
-                        if (BuildConfig.isFullApp)
-                            Routes.MenuScreenRoute.name else Routes.DevScreenRoute.name,
-                        NavOptions.Builder().setPopUpTo(0, true).build()
-                    )
+            launch {
+                viewModel.authState.collectLatest {
+                    if (it !is AuthState.None) {
+                        navHostController.navigate(
+                            if (BuildConfig.isFullApp)
+                                Routes.MenuScreenRoute.name else Routes.DevScreenRoute.name,
+                            NavOptions.Builder().setPopUpTo(0, true).build()
+                        )
+                    }
                 }
             }
-            viewModel.validationState.collectLatest {
-                Toast.makeText(App.app, it, Toast.LENGTH_SHORT).show()
+            launch {
+                viewModel.validationState.collectLatest {
+                    Toast.makeText(App.app, it, Toast.LENGTH_SHORT).show()
+                }
             }
         }
         onDispose { scope.cancel() }
@@ -100,7 +106,11 @@ fun AuthScreen(navHostController: NavHostController = rememberNavController()) {
                 .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-
+            if (viewModel.screenState.value is ScreenState.Loading) {
+                LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
+            } else {
+                Spacer(modifier = Modifier.height(4.0.dp)) // progress indicator height to avoid content jomp
+            }
             Spacer(modifier = Modifier.height(50.dp))
             Text(
                 modifier = Modifier.fillMaxWidth(),
@@ -160,6 +170,24 @@ fun AuthScreen(navHostController: NavHostController = rememberNavController()) {
             )
             Spacer(modifier = Modifier.height(20.dp))
 
+            Button(modifier = Modifier
+                .padding(horizontal = 30.dp)
+                .fillMaxWidth(),
+                shape = RoundedCornerShape(10.dp),
+                onClick = {
+                    MediaManager.playClick()
+                    viewModel.signInAsAnon()
+                }) {
+                Text(text = stringResource(id = R.string.continue_as_anonymous))
+            }
+
+            Spacer(modifier = Modifier.height(15.dp))
+            Text(
+                text = stringResource(R.string.or),
+                style = TextStyle(fontSize = 20.sp, fontWeight = FontWeight.Bold)
+            )
+            Spacer(modifier = Modifier.height(15.dp))
+
             TextField(
                 value = viewModel.usernameTextField.value,
                 onValueChange = { viewModel.usernameTextField.value = it },
@@ -183,23 +211,6 @@ fun AuthScreen(navHostController: NavHostController = rememberNavController()) {
                 }
             ) {
                 Text(text = stringResource(id = R.string.sign_in_with_email))
-            }
-
-            Spacer(modifier = Modifier.height(15.dp))
-            Text(
-                text = stringResource(R.string.or),
-                style = TextStyle(fontSize = 20.sp, fontWeight = FontWeight.Bold)
-            )
-            Spacer(modifier = Modifier.height(15.dp))
-            Button(modifier = Modifier
-                .padding(horizontal = 30.dp)
-                .fillMaxWidth(),
-                shape = RoundedCornerShape(10.dp),
-                onClick = {
-                    MediaManager.playClick()
-                    viewModel.signInAsAnon()
-                }) {
-                Text(text = stringResource(id = R.string.continue_as_anonymous))
             }
             AdBannerBottomSpacer()
         }
