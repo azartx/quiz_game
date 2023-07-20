@@ -47,8 +47,7 @@ class GameViewModel(
 
     fun initialize() {
         viewModelScope.launch(Dispatchers.IO) {
-            val currentLevel = savedStateHandle.get<String>(ARG_CURRENT_LEVEL)?.toInt() ?: 1
-            val level = levelRepository.getSpecificLevel(currentLevel) // todo can cause an exceptions
+            val level = levelRepository.getSpecificLevel(getCurrentLevelNumber()) // todo can cause an exceptions
             currentQuestion.value = level.questions.first()
             questionsCount = level.questions.size
             screenState.value = GameScreenState.GameInProgress(level.questions)
@@ -57,6 +56,8 @@ class GameViewModel(
             }
         }
     }
+
+    private fun getCurrentLevelNumber() = savedStateHandle.get<String>(ARG_CURRENT_LEVEL)?.toInt() ?: 1
 
     fun nextQuestion() {
         val questions = (screenState.value as? GameScreenState.GameInProgress)?.questions ?: run {
@@ -78,9 +79,9 @@ class GameViewModel(
 
     private fun endGame() {
         screenState.value = GameScreenState.EndGame
-        User.currentLevel =+ 1
 
         viewModelScope.launch {
+            User.updateLastCompletedLevel(getCurrentLevelNumber() + 1)
             launch {
                 scoreRepository.updateUserScore(authManager.authState.value.user, score.value)
             }

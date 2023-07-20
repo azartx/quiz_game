@@ -4,6 +4,8 @@ import android.content.SharedPreferences
 import androidx.core.content.edit
 import com.google.firebase.auth.FirebaseUser
 import com.solo4.millionerquiz.data.auth.AuthManager.Companion.DEF_USERNAME
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import org.koin.java.KoinJavaComponent.get
 import java.util.UUID
 
@@ -35,13 +37,19 @@ data class User(
             )
         }
 
-        var currentLevel: Int
-            get() = get<SharedPreferences>(SharedPreferences::class.java)
-                .getInt("LAST_LEVEL", 1)
-            set(value) {
-                get<SharedPreferences>(SharedPreferences::class.java).edit {
-                    putInt("LAST_LEVEL", value)
-                }
+        private const val LAST_LEVEL_KEY = "LAST_LEVEL"
+
+        suspend fun updateLastCompletedLevel(lastCompletedLevel: Int) {
+            get<SharedPreferences>(SharedPreferences::class.java).apply {
+                edit { putInt(LAST_LEVEL_KEY, lastCompletedLevel) }
+                _lastCompletedLevel.emit(lastCompletedLevel)
             }
+        }
+
+        private val _lastCompletedLevel = MutableStateFlow(
+            get<SharedPreferences>(SharedPreferences::class.java)
+                .getInt(LAST_LEVEL_KEY, 1)
+        )
+        val lastCompletedLevel = _lastCompletedLevel.asStateFlow()
     }
 }

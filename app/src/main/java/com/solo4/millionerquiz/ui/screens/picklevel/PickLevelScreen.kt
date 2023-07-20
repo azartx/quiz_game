@@ -3,19 +3,16 @@ package com.solo4.millionerquiz.ui.screens.picklevel
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -35,6 +32,7 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun PickLevelScreen(navHostController: NavHostController = rememberNavController()) {
     val viewModel: PickLevelViewModel = koinViewModel()
+    val lastCompletedLevel by viewModel.lastCompletedLevel.collectAsState()
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -49,7 +47,7 @@ fun PickLevelScreen(navHostController: NavHostController = rememberNavController
                     .background(bgBrush, RoundedCornerShape(20.dp))
                     .padding(20.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
-                state = rememberLazyListState(viewModel.currentLevel, viewModel.currentLevel),
+                state = rememberLazyListState(lastCompletedLevel, lastCompletedLevel),
                 reverseLayout = true
             ) {
                 items(viewModel.levelsCount.value) { level ->
@@ -57,7 +55,7 @@ fun PickLevelScreen(navHostController: NavHostController = rememberNavController
                         isLeft = level % 2 != 0,
                         hideLine = level == (viewModel.levelsCount.value - 1),
                         text = (level + 1).toString(),
-                        isClickEnabled = viewModel.isLevelClickable(level),
+                        isClickEnabled = viewModel.isLevelClickable(level + 1),
                         onClick = { levelStr ->
                             MediaManager.playClick()
                             navHostController.navigate(Routes.GameRoute.nameWithArgs(levelStr))

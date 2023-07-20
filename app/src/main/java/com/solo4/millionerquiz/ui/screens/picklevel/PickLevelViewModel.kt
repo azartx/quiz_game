@@ -12,15 +12,15 @@ class PickLevelViewModel(private val levelsRepository: LevelsRepository) : ViewM
 
     val levelsCount = mutableStateOf(0)
 
+    val lastCompletedLevel = User.lastCompletedLevel
+
     init {
         viewModelScope.launch(Dispatchers.IO) {
             levelsCount.value = levelsRepository.getLevelsCount()
         }
     }
 
-    val currentLevel = User.currentLevel
-
     fun isLevelClickable(number: Int): Boolean {
-        return number <= currentLevel
+        return number <= lastCompletedLevel.value
     }
 }

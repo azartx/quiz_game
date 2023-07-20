@@ -98,7 +98,7 @@ fun MenuScreen(navHostController: NavHostController = rememberNavController()) {
                 onClick = {
                     MediaManager.playClick()
                     navHostController.navigate(
-                        Routes.PickLevelRoute.nameWithArgs(User.currentLevel.toString())
+                        Routes.PickLevelRoute.nameWithArgs(User.lastCompletedLevel.value.toString())
                     )
                 }
             ) {
