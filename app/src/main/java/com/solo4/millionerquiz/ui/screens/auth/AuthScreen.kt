@@ -181,6 +181,19 @@ fun AuthScreen(navHostController: NavHostController = rememberNavController()) {
                 Text(text = stringResource(id = R.string.continue_as_anonymous))
             }
 
+            if (BuildConfig.DEBUG) {
+                Button(modifier = Modifier
+                    .padding(horizontal = 30.dp)
+                    .fillMaxWidth(),
+                    shape = RoundedCornerShape(10.dp),
+                    onClick = {
+                        MediaManager.playClick()
+                        viewModel.signInByEmail("testuser@yopmail.com", "Test12345")
+                    }) {
+                    Text(text = "Login as Developer")
+                }
+            }
+
             Spacer(modifier = Modifier.height(15.dp))
             Text(
                 text = stringResource(R.string.or),

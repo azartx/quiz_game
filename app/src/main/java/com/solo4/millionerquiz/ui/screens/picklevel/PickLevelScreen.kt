@@ -16,21 +16,18 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.solo4.millionerquiz.R
 import com.solo4.millionerquiz.data.MediaManager
 import com.solo4.millionerquiz.ui.components.LevelItem
 import com.solo4.millionerquiz.ui.navigation.Routes
-import com.solo4.millionerquiz.ui.theme.QuizGameTheme
 import com.solo4.millionerquiz.ui.theme.bgBrush
 import com.solo4.millionerquiz.ui.theme.contentPadding
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun PickLevelScreen(navHostController: NavHostController = rememberNavController()) {
+fun PickLevelScreen(navHostController: NavHostController) {
     val viewModel: PickLevelViewModel = koinViewModel()
     val lastCompletedLevel by viewModel.lastCompletedLevel.collectAsState()
     Box(
@@ -75,13 +72,5 @@ fun PickLevelScreen(navHostController: NavHostController = rememberNavController
                 contentDescription = "Back"
             )
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    QuizGameTheme {
-        PickLevelScreen()
     }
 }

@@ -1,7 +1,9 @@
 package com.solo4.millionerquiz.data.auth
 
+import androidx.annotation.Keep
 import com.solo4.millionerquiz.model.auth.User
 
+@Keep
 sealed class AuthState {
     abstract val user: User
     data class None(override val user: User = User.unknown) : AuthState()

@@ -13,8 +13,8 @@ android {
         applicationId "com.solo4.millionerquiz"
         minSdk 27
         targetSdk 33
-        versionCode 3
-        versionName "1.0"
+        versionCode 4
+        versionName "1.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -22,8 +22,32 @@ android {
         }
     }
 
+    signingConfigs {
+        create("release") {
+            def secureProps = new Properties()
+            if (file("../secure.properties").exists()) {
+                secureProps.load(new FileInputStream(file("../secure.properties")))
+            } else {
+                throw GradleException("secure.properties is not exist. It must be in root project dir")
+            }
+
+            def password = secureProps.getProperty("KEYSTORE_PASSWORD")
+            def alias = secureProps.getProperty("KEYSTORE_ALIAS")
+
+            if (password.isBlank() || alias.isBlank()) {
+                throw GradleException("Can't create release build because of empty password or alias data")
+            }
+
+            storeFile = file("release-key.jks")
+            storePassword = password
+            keyPassword = password
+            keyAlias = alias
+        }
+    }
+
     buildTypes {
         release {
+            signingConfig signingConfigs.getByName("release")
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
