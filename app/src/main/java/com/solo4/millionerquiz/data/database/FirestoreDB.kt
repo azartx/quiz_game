@@ -24,7 +24,7 @@ class FirestoreDB(
     @WorkerThread
     suspend fun getAllLevelsData(): List<Level> = suspendCoroutine { cont ->
         firestore.collection(langManager.levelsLanguage.levelsDbName)
-            .get()
+            .get(RemoteDBFetcher.dbSource)
             .addOnSuccessListener { collection ->
                 if (collection != null) {
                     cont.resume(deserializer.documentsToLevels(collection.documents))
@@ -60,7 +60,7 @@ class FirestoreDB(
     @WorkerThread
     suspend fun getLevelsCount(): Int = suspendCoroutine { cont ->
         firestore.collection(langManager.levelsLanguage.levelsDbName)
-            .count().query.get()
+            .count().query.get(RemoteDBFetcher.dbSource)
             .addOnSuccessListener { cont.resume(it?.size() ?: 0) }
             .addOnFailureListener {
                 Log.e(TAG, "Exception while getting levels count:", it)
@@ -73,7 +73,7 @@ class FirestoreDB(
     suspend fun getLevelData(levelNumber: Int): Level = suspendCoroutine { cont ->
         firestore.collection(langManager.levelsLanguage.levelsDbName)
             .document("/$levelNumber")
-            .get()
+            .get(RemoteDBFetcher.dbSource)
             .addOnSuccessListener { documentSnapshot ->
                 if (documentSnapshot == null) {
                     cont.resumeWithException(IndexOutOfBoundsException("Level $levelNumber is not exist"))

@@ -56,7 +56,7 @@ class MainActivity : ComponentActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
         // ****************************
-        installSplashScreen().setKeepOnScreenCondition { false }
+        installSplashScreen().setKeepOnScreenCondition { viewModel.keepOnSplashScreen.value }
         lifecycle.addObserver(mediaManager) // initialize app music
         val navBarSize = try {
             resources.getDimensionPixelSize(
